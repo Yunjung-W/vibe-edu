@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HYUNDAI Competitive Intelligence</title>
+  <script src="https://cdn.jsdelivr.net/npm/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://cdn.jsdelivr.net/npm/prop-types@15.8.1/prop-types.min.js" crossorigin></script>
+  <script src="https://cdn.jsdelivr.net/npm/recharts@2.9.0/umd/Recharts.js" crossorigin></script>
+  <script src="https://cdn.jsdelivr.net/npm/@babel/standalone/babel.min.js" crossorigin></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:        #002C5F;
+      --navy-mid:    #003A7A;
+      --navy-light:  #00518A;
+      --hyundai:     #00AAD2;
+      --hyundai-dim: rgba(0,170,210,0.18);
+      --card:        rgba(255,255,255,0.05);
+      --card-border: rgba(255,255,255,0.10);
+      --text:        #FFFFFF;
+      --text-muted:  rgba(255,255,255,0.55);
+      --text-dim:    rgba(255,255,255,0.35);
+      --radius:      12px;
+      --shadow:      0 4px 24px rgba(0,0,0,0.35);
+    }
+
+    body {
+      background: var(--navy);
+      color: var(--text);
+      font-family: 'Segoe UI', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    .header {
+      background: linear-gradient(135deg, #001A3D 0%, #003060 100%);
+      border-bottom: 1px solid rgba(0,170,210,0.3);
+      padding: 18px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .logo-badge {
+      width: 42px;
+      height: 42px;
+      background: var(--hyundai);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 18px;
+      color: var(--navy);
+      letter-spacing: -1px;
+      flex-shrink: 0;
+    }
+
+    .header-titles h1 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--hyundai);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .header-titles p {
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+      margin-top: 2px;
+    }
+
+    .data-badge {
+      font-size: 10px;
+      background: rgba(0,170,210,0.15);
+      border: 1px solid rgba(0,170,210,0.35);
+      color: var(--hyundai);
+      padding: 3px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── OEM Filter ── */
+    .oem-filter {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .oem-chip {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 5px 12px;
+      border-radius: 20px;
+      border: 1.5px solid transparent;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      transition: all 0.18s ease;
+      user-select: none;
+      background: rgba(255,255,255,0.05);
+      border-color: rgba(255,255,255,0.12);
+      color: var(--text-muted);
+    }
+
+    .oem-chip.active {
+      border-color: var(--chip-color);
+      color: var(--text);
+      background: rgba(var(--chip-rgb), 0.12);
+    }
+
+    .oem-chip.hyundai-chip.active {
+      background: var(--hyundai-dim);
+      border-color: var(--hyundai);
+      color: var(--hyundai);
+    }
+
+    .oem-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ── Main Layout ── */
+    .main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 28px 32px 48px;
+    }
+
+    /* ── Tab Nav ── */
+    .tab-nav {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 24px;
+      background: rgba(0,0,0,0.2);
+      padding: 4px;
+      border-radius: 12px;
+      width: fit-content;
+    }
+
+    .tab-btn {
+      padding: 9px 22px;
+      border: none;
+      border-radius: 9px;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      white-space: nowrap;
+    }
+
+    .tab-btn:hover { color: var(--text); background: rgba(255,255,255,0.06); }
+
+    .tab-btn.active {
+      background: var(--navy-mid);
+      color: var(--hyundai);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .card-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      margin-bottom: 6px;
+    }
+
+    .card-subtitle {
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-bottom: 20px;
+    }
+
+    .chart-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .chart-full { margin-top: 0; }
+
+    /* KPI strip */
+    .kpi-strip {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .kpi-card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .kpi-card.hyundai-kpi {
+      border-color: rgba(0,170,210,0.4);
+      background: var(--hyundai-dim);
+    }
+
+    .kpi-oem-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+    }
+
+    .kpi-value {
+      font-size: 22px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .kpi-unit {
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+
+    .kpi-delta {
+      font-size: 11px;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    .delta-up   { color: #4CAF50; }
+    .delta-down { color: #EF5350; }
+
+    /* Custom Tooltip */
+    .custom-tooltip {
+      background: #001530;
+      border: 1px solid rgba(0,170,210,0.35);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      min-width: 160px;
+    }
+
+    .custom-tooltip .tt-label {
+      color: var(--hyundai);
+      font-weight: 700;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 8px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .custom-tooltip .tt-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .custom-tooltip .tt-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .custom-tooltip .tt-name {
+      color: var(--text-muted);
+      flex: 1;
+    }
+
+    .custom-tooltip .tt-val {
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    /* Recharts overrides */
+    .recharts-cartesian-grid-horizontal line,
+    .recharts-cartesian-grid-vertical line {
+      stroke: rgba(255,255,255,0.07);
+    }
+    .recharts-text { fill: rgba(255,255,255,0.55) !important; font-size: 11px !important; }
+    .recharts-legend-item-text { color: rgba(255,255,255,0.7) !important; font-size: 12px !important; }
+    .recharts-tooltip-cursor { stroke: rgba(0,170,210,0.3) !important; }
+    .recharts-polar-grid-angle line { stroke: rgba(255,255,255,0.08) !important; }
+    .recharts-polar-grid-concentric { stroke: rgba(255,255,255,0.08) !important; }
+
+    /* Info section */
+    .info-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      color: var(--text-dim);
+      font-size: 11px;
+      margin-top: 16px;
+    }
+
+    .info-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--hyundai);
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 900px) {
+      .main { padding: 16px; }
+      .chart-grid-2 { grid-template-columns: 1fr; }
+      .kpi-strip { grid-template-columns: repeat(3, 1fr); }
+      .header { padding: 14px 16px; }
+    }
+  </style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const {
+  LineChart, Line,
+  BarChart, Bar,
+  RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis,
+  ScatterChart, Scatter,
+  XAxis, YAxis, CartesianGrid, Tooltip, Legend,
+  ResponsiveContainer, Cell, ZAxis, ReferenceLine
+} = Recharts;
+
+/* ═══════════════════════════════════════════════════════
+   OEM 정의
+═══════════════════════════════════════════════════════ */
+const OEMS = [
+  { id: 'hyundai',    label: '현대차그룹', short: 'HMG',  color: '#00AAD2', rgb: '0,170,210' },
+  { id: 'toyota',     label: '토요타',     short: 'TYT',  color: '#FF1744', rgb: '255,23,68' },
+  { id: 'vw',         label: '폭스바겐',   short: 'VW',   color: '#5C9DFF', rgb: '92,157,255' },
+  { id: 'tesla',      label: '테슬라',     short: 'TSL',  color: '#9C27B0', rgb: '156,39,176' },
+  { id: 'byd',        label: 'BYD',        short: 'BYD',  color: '#00C853', rgb: '0,200,83' },
+  { id: 'stellantis', label: '스텔란티스', short: 'STL',  color: '#FF9800', rgb: '255,152,0' },
+];
+
+/* ═══════════════════════════════════════════════════════
+   DATA
+═══════════════════════════════════════════════════════ */
+// 1. 글로벌 판매량 (백만 대, 2022~2025)
+const salesData = [
+  { year: '2022', hyundai: 6.84, toyota: 10.49, vw: 8.26, tesla: 1.31, byd: 1.86, stellantis: 6.19 },
+  { year: '2023', hyundai: 7.30, toyota: 11.23, vw: 9.24, tesla: 1.81, byd: 3.02, stellantis: 6.17 },
+  { year: '2024', hyundai: 7.27, toyota: 11.08, vw: 9.03, tesla: 1.79, byd: 5.25, stellantis: 5.54 },
+  { year: '2025E', hyundai: 7.42, toyota: 11.30, vw: 9.10, tesla: 1.92, byd: 5.85, stellantis: 5.62 },
+];
+
+// 2. 전동화 비중 (BEV / HEV·PHEV / ICE, 2024)
+const evData = [
+  { id: 'hyundai',    oem: '현대차',     bev: 8.5,  hev: 25.4, ice: 66.1 },
+  { id: 'toyota',     oem: '토요타',     bev: 1.2,  hev: 38.1, ice: 60.7 },
+  { id: 'vw',         oem: '폭스바겐',   bev: 10.4, hev: 7.9,  ice: 81.7 },
+  { id: 'tesla',      oem: '테슬라',     bev: 100,  hev: 0,    ice: 0    },
+  { id: 'byd',        oem: 'BYD',        bev: 55.2, hev: 44.8, ice: 0    },
+  { id: 'stellantis', oem: '스텔란티스', bev: 4.9,  hev: 14.3, ice: 80.8 },
+];
+
+// 3. 지역별 시장점유율 (%, 2024)
+const regionData = [
+  { region: '북미',      hyundai: 9.2,  toyota: 14.8, vw: 4.1,  tesla: 5.9,  byd: 0.4,  stellantis: 14.6 },
+  { region: '유럽',      hyundai: 4.1,  toyota: 6.3,  vw: 24.8, tesla: 2.1,  byd: 2.2,  stellantis: 16.8 },
+  { region: '중국',      hyundai: 1.5,  toyota: 7.9,  vw: 11.8, tesla: 5.2,  byd: 34.8, stellantis: 1.9  },
+  { region: '한국',      hyundai: 64.5, toyota: 2.9,  vw: 5.1,  tesla: 3.8,  byd: 0.4,  stellantis: 0.8  },
+  { region: '인도',      hyundai: 14.8, toyota: 8.7,  vw: 2.1,  tesla: 0.2,  byd: 0.8,  stellantis: 1.2  },
+  { region: '중동/아프리카', hyundai: 7.9, toyota: 17.4, vw: 4.8, tesla: 0.9, byd: 2.8, stellantis: 3.7 },
+  { region: '기타아시아', hyundai: 7.3,  toyota: 21.8, vw: 3.9,  tesla: 1.8,  byd: 8.2,  stellantis: 2.1  },
+];
+
+// 4. 재무 데이터 (2024)
+const financialData = [
+  { id: 'hyundai',    oem: '현대차그룹', margin: 8.2,  growth: 5.1,   mcap: 55,  rev: 162.7 },
+  { id: 'toyota',     oem: '토요타',     margin: 10.8, growth: 7.3,   mcap: 290, rev: 312.4 },
+  { id: 'vw',         oem: '폭스바겐',   margin: 3.5,  growth: -1.2,  mcap: 55,  rev: 295.1 },
+  { id: 'tesla',      oem: '테슬라',     margin: 7.2,  growth: -1.1,  mcap: 750, rev: 97.7  },
+  { id: 'byd',        oem: 'BYD',        margin: 5.8,  growth: 22.0,  mcap: 100, rev: 107.3 },
+  { id: 'stellantis', oem: '스텔란티스', margin: -1.2, growth: -14.0, mcap: 28,  rev: 189.2 },
+];
+
+// KPI 카드 (최신 2024 판매량)
+const kpiData = {
+  hyundai: { sales: 727, yoy: -0.4 },
+  toyota:  { sales: 1108, yoy: -1.3 },
+  vw:      { sales: 903, yoy: -2.3 },
+  tesla:   { sales: 179, yoy: -1.1 },
+  byd:     { sales: 525, yoy: +73.8 },
+  stellantis: { sales: 554, yoy: -10.2 },
+};
+
+/* ═══════════════════════════════════════════════════════
+   Custom Tooltip
+═══════════════════════════════════════════════════════ */
+function SalesTooltip({ active, payload, label }) {
+  if (!active || !payload?.length) return null;
+  const sorted = [...payload].sort((a, b) => b.value - a.value);
+  return (
+    <div className="custom-tooltip">
+      <div className="tt-label">{label}년 판매량</div>
+      {sorted.map(p => (
+        <div className="tt-row" key={p.dataKey}>
+          <span className="tt-dot" style={{ background: p.color }} />
+          <span className="tt-name">{OEMS.find(o => o.id === p.dataKey)?.label ?? p.dataKey}</span>
+          <span className="tt-val">{p.value.toFixed(2)}M</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function EVTooltip({ active, payload, label }) {
+  if (!active || !payload?.length) return null;
+  return (
+    <div className="custom-tooltip">
+      <div className="tt-label">{label}</div>
+      {payload.map(p => (
+        <div className="tt-row" key={p.dataKey}>
+          <span className="tt-dot" style={{ background: p.fill }} />
+          <span className="tt-name">{p.name}</span>
+          <span className="tt-val">{p.value.toFixed(1)}%</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function RegionTooltip({ active, payload, label }) {
+  if (!active || !payload?.length) return null;
+  return (
+    <div className="custom-tooltip">
+      <div className="tt-label">{label}</div>
+      {payload.map(p => (
+        <div className="tt-row" key={p.dataKey}>
+          <span className="tt-dot" style={{ background: p.stroke || p.color }} />
+          <span className="tt-name">{OEMS.find(o => o.id === p.dataKey)?.label ?? p.dataKey}</span>
+          <span className="tt-val">{p.value?.toFixed(1)}%</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function FinancialTooltip({ active, payload }) {
+  if (!active || !payload?.length) return null;
+  const d = payload[0]?.payload;
+  if (!d) return null;
+  const oem = OEMS.find(o => o.id === d.id);
+  return (
+    <div className="custom-tooltip">
+      <div className="tt-label">{d.oem}</div>
+      <div className="tt-row">
+        <span className="tt-dot" style={{ background: oem?.color }} />
+        <span className="tt-name">영업이익률</span>
+        <span className="tt-val">{d.margin.toFixed(1)}%</span>
+      </div>
+      <div className="tt-row">
+        <span className="tt-name">매출 성장률</span>
+        <span className="tt-val" style={{ color: d.growth >= 0 ? '#4CAF50' : '#EF5350' }}>
+          {d.growth >= 0 ? '+' : ''}{d.growth.toFixed(1)}%
+        </span>
+      </div>
+      <div className="tt-row">
+        <span className="tt-name">매출액</span>
+        <span className="tt-val">${d.rev.toFixed(1)}B</span>
+      </div>
+      <div className="tt-row">
+        <span className="tt-name">시가총액</span>
+        <span className="tt-val">${d.mcap}B</span>
+      </div>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════
+   Tab Contents
+═══════════════════════════════════════════════════════ */
+function SalesTab({ activeOEMs }) {
+  const visible = OEMS.filter(o => activeOEMs.has(o.id));
+  return (
+    <div>
+      <div className="kpi-strip">
+        {OEMS.map(oem => {
+          const k = kpiData[oem.id];
+          const isActive = activeOEMs.has(oem.id);
+          return (
+            <div key={oem.id} className={`kpi-card ${oem.id === 'hyundai' ? 'hyundai-kpi' : ''}`}
+              style={{ opacity: isActive ? 1 : 0.35, borderColor: isActive ? `rgba(${oem.rgb},0.35)` : 'var(--card-border)' }}>
+              <span className="kpi-oem-label" style={{ color: oem.color }}>{oem.short}</span>
+              <span className="kpi-value" style={{ color: oem.id === 'hyundai' ? oem.color : 'var(--text)' }}>
+                {k.sales.toLocaleString()}
+              </span>
+              <span className="kpi-unit">만 대 (2024)</span>
+              <span className={`kpi-delta ${k.yoy >= 0 ? 'delta-up' : 'delta-down'}`}>
+                {k.yoy >= 0 ? '▲' : '▼'} {Math.abs(k.yoy).toFixed(1)}% YoY
+              </span>
+            </div>
+          );
+        })}
+      </div>
+
+      <div className="card">
+        <div className="card-title">글로벌 판매량 추이</div>
+        <div className="card-subtitle">2022 ~ 2025E · 단위: 백만 대 · BYD는 승용 NEV 포함</div>
+        <ResponsiveContainer width="100%" height={380}>
+          <LineChart data={salesData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="year" />
+            <YAxis domain={[0, 12]} unit="M" />
+            <Tooltip content={<SalesTooltip />} />
+            <Legend />
+            {visible.map(oem => (
+              <Line
+                key={oem.id}
+                type="monotone"
+                dataKey={oem.id}
+                name={oem.label}
+                stroke={oem.color}
+                strokeWidth={oem.id === 'hyundai' ? 4 : 2}
+                dot={{ r: oem.id === 'hyundai' ? 6 : 4, fill: oem.color, strokeWidth: 0 }}
+                activeDot={{ r: 8, fill: oem.color, stroke: '#fff', strokeWidth: 2 }}
+                isAnimationActive={false}
+              />
+            ))}
+          </LineChart>
+        </ResponsiveContainer>
+        <div className="info-row">
+          <span className="info-dot" />
+          <span>2025E는 IHS Markit 전망치 기준. 현대차그룹은 현대·기아·제네시스 합산.</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+const evDeltaData = [
+  { id: 'hyundai',    oem: '현대차',     delta: 5.8 },
+  { id: 'toyota',     oem: '토요타',     delta: 0.7 },
+  { id: 'vw',         oem: '폭스바겐',   delta: 6.1 },
+  { id: 'tesla',      oem: '테슬라',     delta: 0   },
+  { id: 'byd',        oem: 'BYD',        delta: 24.5 },
+  { id: 'stellantis', oem: '스텔란티스', delta: 3.2 },
+];
+
+function EVTab({ activeOEMs }) {
+  const visible = evData.filter(d => activeOEMs.has(d.id));
+  const bevRanked = [...visible].sort((a, b) => b.bev - a.bev);
+  const deltaVisible = evDeltaData.filter(d => activeOEMs.has(d.id)).sort((a, b) => b.delta - a.delta);
+  const EVC = { bev: '#00AAD2', hev: '#FFC107', ice: '#546E7A' };
+
+  return (
+    <div>
+      <div className="card">
+        <div className="card-title">전동화 믹스 비교 (2024)</div>
+        <div className="card-subtitle">BEV · HEV/PHEV · 내연기관(ICE) 판매 비중 · %</div>
+        <ResponsiveContainer width="100%" height={360}>
+          <BarChart data={visible} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="oem" />
+            <YAxis unit="%" tickCount={6} />
+            <Tooltip content={<EVTooltip />} />
+            <Legend />
+            <Bar dataKey="bev" name="BEV (순수전기)" stackId="a" fill={EVC.bev} isAnimationActive={false} />
+            <Bar dataKey="hev" name="HEV / PHEV"    stackId="a" fill={EVC.hev} isAnimationActive={false} />
+            <Bar dataKey="ice" name="ICE (내연기관)" stackId="a" fill={EVC.ice} isAnimationActive={false} />
+          </BarChart>
+        </ResponsiveContainer>
+        <div className="info-row">
+          <span className="info-dot" />
+          <span>현대차그룹 BEV 9%는 아이오닉5·6, EV6·9 등 포함. BYD는 DM(PHEV)을 HEV로 분류.</span>
+        </div>
+      </div>
+
+      <div className="chart-grid-2" style={{ marginTop: 20 }}>
+        <div className="card">
+          <div className="card-title">BEV 비중 순위</div>
+          <div className="card-subtitle">2024 · BEV only</div>
+          <ResponsiveContainer width="100%" height={240}>
+            <BarChart layout="vertical" data={bevRanked} margin={{ top: 0, right: 30, left: 30, bottom: 0 }}>
+              <CartesianGrid strokeDasharray="3 3" horizontal={false} />
+              <XAxis type="number" unit="%" />
+              <YAxis type="category" dataKey="oem" width={60} />
+              <Tooltip formatter={(v) => [`${v.toFixed(1)}%`, 'BEV 비중']} />
+              <Bar dataKey="bev" name="BEV 비중" radius={[0,4,4,0]} isAnimationActive={false}>
+                {bevRanked.map((entry, i) => (
+                  <Cell key={i} fill={OEMS.find(o => o.id === entry.id)?.color ?? '#888'} />
+                ))}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+
+        <div className="card">
+          <div className="card-title">전동화 전환 속도</div>
+          <div className="card-subtitle">BEV 비중 변화 (2022→2024, pp)</div>
+          <ResponsiveContainer width="100%" height={240}>
+            <BarChart layout="vertical" data={deltaVisible} margin={{ top: 0, right: 30, left: 30, bottom: 0 }}>
+              <CartesianGrid strokeDasharray="3 3" horizontal={false} />
+              <XAxis type="number" unit="pp" />
+              <YAxis type="category" dataKey="oem" width={60} />
+              <Tooltip formatter={(v) => [`+${v.toFixed(1)}pp`, 'BEV 증가']} />
+              <Bar dataKey="delta" name="BEV 비중 증가" radius={[0,4,4,0]} isAnimationActive={false}>
+                {deltaVisible.map((entry, i) => (
+                  <Cell key={i} fill={OEMS.find(o => o.id === entry.id)?.color ?? '#888'} />
+                ))}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function RegionTab({ activeOEMs }) {
+  const visible = OEMS.filter(o => activeOEMs.has(o.id));
+  return (
+    <div>
+      <div className="card">
+        <div className="card-title">권역별 시장 점유율 (2024)</div>
+        <div className="card-subtitle">7개 글로벌 권역 · 각 권역 내 점유율 % · 레이더 면적이 클수록 해당 권역 강세</div>
+        <ResponsiveContainer width="100%" height={460}>
+          <RadarChart cx="50%" cy="50%" outerRadius="72%" data={regionData}>
+            <PolarGrid />
+            <PolarAngleAxis
+              dataKey="region"
+              tick={{ fill: 'rgba(255,255,255,0.7)', fontSize: 12, fontWeight: 600 }}
+            />
+            <PolarRadiusAxis
+              angle={90}
+              domain={[0, 70]}
+              tickCount={5}
+              tick={{ fill: 'rgba(255,255,255,0.35)', fontSize: 10 }}
+            />
+            <Tooltip content={<RegionTooltip />} />
+            <Legend />
+            {visible.map(oem => (
+              <Radar
+                key={oem.id}
+                name={oem.label}
+                dataKey={oem.id}
+                stroke={oem.color}
+                fill={oem.color}
+                fillOpacity={oem.id === 'hyundai' ? 0.25 : 0.08}
+                strokeWidth={oem.id === 'hyundai' ? 3 : 1.5}
+                dot={oem.id === 'hyundai'}
+                isAnimationActive={false}
+              />
+            ))}
+          </RadarChart>
+        </ResponsiveContainer>
+        <div className="info-row">
+          <span className="info-dot" />
+          <span>현대차는 한국 홈마켓(64.5%)·인도(14.8%)·북미(9.2%) 강세. 중국 시장은 1.5%로 회복 과제 남아있음.</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function FinancialTab({ activeOEMs }) {
+  const visible = financialData.filter(d => activeOEMs.has(d.id));
+
+  return (
+    <div>
+      <div className="card">
+        <div className="card-title">영업이익률 vs 매출 성장률 (2024)</div>
+        <div className="card-subtitle">
+          X축: 매출 성장률(%) · Y축: 영업이익률(%) · 버블 크기: 시가총액($B)
+        </div>
+        <ResponsiveContainer width="100%" height={420}>
+          <ScatterChart margin={{ top: 20, right: 40, bottom: 20, left: 20 }}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis
+              type="number"
+              dataKey="growth"
+              name="매출 성장률"
+              unit="%"
+              domain={[-20, 35]}
+              label={{ value: '매출 성장률 (%)', position: 'insideBottom', offset: -8, fill: 'rgba(255,255,255,0.45)', fontSize: 11 }}
+            />
+            <YAxis
+              type="number"
+              dataKey="margin"
+              name="영업이익률"
+              unit="%"
+              domain={[-5, 15]}
+              label={{ value: '영업이익률 (%)', angle: -90, position: 'insideLeft', offset: 10, fill: 'rgba(255,255,255,0.45)', fontSize: 11 }}
+            />
+            <ZAxis type="number" dataKey="mcap" range={[800, 8000]} name="시가총액" />
+            <Tooltip content={<FinancialTooltip />} />
+            <ReferenceLine x={0} stroke="rgba(255,255,255,0.15)" strokeDasharray="4 4" />
+            <ReferenceLine y={0} stroke="rgba(255,255,255,0.15)" strokeDasharray="4 4" />
+            {visible.map(d => {
+              const oem = OEMS.find(o => o.id === d.id);
+              return (
+                <Scatter
+                  key={d.id}
+                  name={d.oem}
+                  data={[d]}
+                  fill={oem?.color}
+                  fillOpacity={d.id === 'hyundai' ? 1 : 0.8}
+                  stroke={d.id === 'hyundai' ? '#fff' : 'none'}
+                  strokeWidth={d.id === 'hyundai' ? 2 : 0}
+                  isAnimationActive={false}
+                />
+              );
+            })}
+          </ScatterChart>
+        </ResponsiveContainer>
+
+        {/* Legend manual */}
+        <div style={{ display:'flex', flexWrap:'wrap', gap:'12px', marginTop:'16px', justifyContent:'center' }}>
+          {visible.map(d => {
+            const oem = OEMS.find(o => o.id === d.id);
+            return (
+              <div key={d.id} style={{ display:'flex', alignItems:'center', gap:'6px', fontSize:'12px', color:'rgba(255,255,255,0.7)' }}>
+                <span style={{ width:12, height:12, borderRadius:'50%', background:oem?.color, display:'inline-block',
+                  border: d.id==='hyundai' ? '2px solid #fff' : 'none' }} />
+                {d.oem}
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="info-row">
+          <span className="info-dot" />
+          <span>현대차 영업이익률 8.2%, 업계 2위권 유지. BYD 고성장(+22%)·스텔란티스 적자 전환이 주목 포인트.</span>
+        </div>
+      </div>
+
+      {/* 재무 비교 테이블 */}
+      <div className="card" style={{ marginTop: 20 }}>
+        <div className="card-title">핵심 재무지표 비교 (2024)</div>
+        <div style={{ overflowX: 'auto', marginTop: 12 }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
+            <thead>
+              <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
+                {['OEM', '매출($B)', '영업이익률', '매출성장률(YoY)', '시가총액($B)'].map(h => (
+                  <th key={h} style={{ padding:'10px 16px', color:'rgba(255,255,255,0.45)', fontWeight:600,
+                    fontSize:11, textTransform:'uppercase', letterSpacing:'0.8px', textAlign: h==='OEM'?'left':'right' }}>{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {financialData.filter(d => activeOEMs.has(d.id)).map(d => {
+                const oem = OEMS.find(o => o.id === d.id);
+                const isHyundai = d.id === 'hyundai';
+                return (
+                  <tr key={d.id} style={{
+                    borderBottom: '1px solid rgba(255,255,255,0.06)',
+                    background: isHyundai ? 'rgba(0,170,210,0.08)' : 'transparent',
+                  }}>
+                    <td style={{ padding:'12px 16px', display:'flex', alignItems:'center', gap:10 }}>
+                      <span style={{ width:10, height:10, borderRadius:'50%', background:oem?.color, display:'inline-block', flexShrink:0 }} />
+                      <span style={{ fontWeight: isHyundai ? 700 : 400, color: isHyundai ? oem?.color : 'var(--text)' }}>
+                        {d.oem}
+                        {isHyundai && <span style={{ marginLeft:6, fontSize:10, background:'rgba(0,170,210,0.2)',
+                          border:'1px solid rgba(0,170,210,0.4)', color:'#00AAD2', padding:'1px 6px', borderRadius:10 }}>당사</span>}
+                      </span>
+                    </td>
+                    <td style={{ padding:'12px 16px', textAlign:'right', fontWeight:600 }}>${d.rev.toFixed(1)}</td>
+                    <td style={{ padding:'12px 16px', textAlign:'right',
+                      color: d.margin >= 8 ? '#4CAF50' : d.margin >= 0 ? 'var(--text)' : '#EF5350',
+                      fontWeight: 700 }}>
+                      {d.margin.toFixed(1)}%
+                    </td>
+                    <td style={{ padding:'12px 16px', textAlign:'right',
+                      color: d.growth >= 0 ? '#4CAF50' : '#EF5350', fontWeight:600 }}>
+                      {d.growth >= 0 ? '+' : ''}{d.growth.toFixed(1)}%
+                    </td>
+                    <td style={{ padding:'12px 16px', textAlign:'right', color:'rgba(255,255,255,0.7)' }}>
+                      ${d.mcap}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════
+   Main App
+═══════════════════════════════════════════════════════ */
+function App() {
+  const [activeTab, setActiveTab] = React.useState('sales');
+  const [activeOEMs, setActiveOEMs] = React.useState(new Set(OEMS.map(o => o.id)));
+
+  const tabs = [
+    { id: 'sales',    label: '📊 판매량' },
+    { id: 'ev',       label: '⚡ 전동화' },
+    { id: 'region',   label: '🌏 지역별 점유율' },
+    { id: 'finance',  label: '💹 재무' },
+  ];
+
+  function toggleOEM(id) {
+    if (id === 'hyundai') return; // 현대차는 항상 표시
+    setActiveOEMs(prev => {
+      const next = new Set(prev);
+      if (next.has(id)) {
+        if (next.size <= 2) return prev; // 최소 2개 유지
+        next.delete(id);
+      } else {
+        next.add(id);
+      }
+      return next;
+    });
+  }
+
+  return (
+    <div>
+      {/* Header */}
+      <header className="header">
+        <div className="header-left">
+          <div className="logo-badge">H</div>
+          <div className="header-titles">
+            <h1>HYUNDAI Competitive Intelligence</h1>
+            <p>글로벌 OEM 경쟁사 벤치마크 인텔리전스 보드 · 경영진 전용</p>
+          </div>
+          <span className="data-badge">2024 기준</span>
+        </div>
+
+        {/* OEM Filter */}
+        <div className="oem-filter">
+          {OEMS.map(oem => {
+            const isActive = activeOEMs.has(oem.id);
+            return (
+              <button
+                key={oem.id}
+                className={`oem-chip ${isActive ? 'active' : ''} ${oem.id === 'hyundai' ? 'hyundai-chip' : ''}`}
+                style={{
+                  '--chip-color': oem.color,
+                  '--chip-rgb': oem.rgb,
+                  cursor: oem.id === 'hyundai' ? 'default' : 'pointer',
+                }}
+                onClick={() => toggleOEM(oem.id)}
+                title={oem.id === 'hyundai' ? '현대차그룹은 항상 표시됩니다' : `${oem.label} ${isActive ? '제외' : '포함'}`}
+              >
+                <span className="oem-dot" style={{ background: oem.color }} />
+                {oem.label}
+                {oem.id === 'hyundai' && <span style={{ fontSize:9, opacity:0.7, marginLeft:2 }}>★</span>}
+              </button>
+            );
+          })}
+        </div>
+      </header>
+
+      {/* Main */}
+      <main className="main">
+        {/* Tab Nav */}
+        <div className="tab-nav">
+          {tabs.map(t => (
+            <button
+              key={t.id}
+              className={`tab-btn ${activeTab === t.id ? 'active' : ''}`}
+              onClick={() => setActiveTab(t.id)}
+            >
+              {t.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Tab Content */}
+        {activeTab === 'sales'   && <SalesTab   activeOEMs={activeOEMs} />}
+        {activeTab === 'ev'      && <EVTab       activeOEMs={activeOEMs} />}
+        {activeTab === 'region'  && <RegionTab   activeOEMs={activeOEMs} />}
+        {activeTab === 'finance' && <FinancialTab activeOEMs={activeOEMs} />}
+
+        {/* Footer */}
+        <div style={{ marginTop:32, display:'flex', justifyContent:'space-between', alignItems:'center',
+          borderTop:'1px solid rgba(255,255,255,0.07)', paddingTop:16 }}>
+          <span style={{ fontSize:11, color:'rgba(255,255,255,0.25)' }}>
+            Data sources: IHS Markit, Bloomberg, Company Reports, KAMA · 본 자료는 내부 검토용이며 공개 배포를 금합니다.
+          </span>
+          <span style={{ fontSize:11, color:'rgba(255,255,255,0.25)' }}>
+            © 2025 Hyundai Motor Group · Strategy & Planning Division
+          </span>
+        </div>
+      </main>
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>

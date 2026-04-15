@@ -1,0 +1,241 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --hyundai-blue: #002C5F;
+  --hyundai-dark: #000000;
+  --hyundai-gray-dark: #60605B;
+  --hyundai-gray-mid: #999999;
+  --hyundai-gray-light: #F4F4F4;
+  --hyundai-sand: #BFBAAF;
+  --hyundai-white: #FFFFFF;
+  --hyundai-active-blue: #0073E6;
+  --hyundai-positive: #00825A;
+  --hyundai-negative: #D32F2F;
+
+  --color-toyota: #EB0A1E;
+  --color-vw: #001E50;
+  --color-hyundai: #002C5F;
+  --color-gm: #0170CE;
+  --color-stellantis: #243971;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: 'Pretendard Variable', 'Pretendard', 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: #FFFFFF;
+  color: #000000;
+  min-height: 100vh;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #F4F4F4;
+}
+::-webkit-scrollbar-thumb {
+  background: #BFBAAF;
+  border-radius: 2px;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out both;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out both;
+}
+
+.animate-delay-100 { animation-delay: 0.1s; }
+.animate-delay-200 { animation-delay: 0.2s; }
+.animate-delay-300 { animation-delay: 0.3s; }
+.animate-delay-400 { animation-delay: 0.4s; }
+
+/* Button styles */
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border: 1px solid var(--hyundai-blue);
+  color: var(--hyundai-blue);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.btn-outline:hover {
+  background: var(--hyundai-blue);
+  color: white;
+}
+
+.btn-outline:active {
+  transform: scale(0.98);
+}
+
+/* Pill filter buttons */
+.pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 100px;
+  border: 1px solid #E5E5E5;
+  background: white;
+  color: #60605B;
+  font-size: 13px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+  white-space: nowrap;
+}
+
+.pill-btn:hover {
+  border-color: var(--hyundai-blue);
+  color: var(--hyundai-blue);
+}
+
+.pill-btn.active {
+  background: var(--hyundai-blue);
+  border-color: var(--hyundai-blue);
+  color: white;
+}
+
+.pill-btn:active {
+  transform: scale(0.98);
+}
+
+/* Card styles */
+.data-card {
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  transition: box-shadow 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.data-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Divider */
+.divider {
+  border: none;
+  border-top: 1px solid #E5E5E5;
+}
+
+/* Chart container */
+.chart-container {
+  background: white;
+  padding: 32px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+/* Timeline */
+.timeline-line {
+  position: absolute;
+  left: 11px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #E5E5E5;
+}
+
+/* Recharts customizations */
+.recharts-cartesian-grid-horizontal line,
+.recharts-cartesian-grid-vertical line {
+  stroke: #F0F0F0;
+  stroke-dasharray: 4 4;
+}
+
+.recharts-text {
+  font-family: 'Outfit', 'Pretendard Variable', sans-serif;
+  font-size: 11px;
+  fill: #999999;
+}
+
+/* Range slider */
+.range-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 3px;
+  background: #E5E5E5;
+  outline: none;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.range-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--hyundai-blue);
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 0 0 2px var(--hyundai-blue);
+  transition: transform 0.2s;
+}
+
+.range-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+/* Popup overlay */
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.popup-content {
+  background: white;
+  max-width: 480px;
+  width: 90%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  animation: fadeInUp 0.3s ease-out;
+}
+
+/* Number formatting */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}

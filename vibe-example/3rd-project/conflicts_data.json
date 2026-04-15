@@ -1,0 +1,454 @@
+{
+  "source": "https://en.wikipedia.org/wiki/List_of_ongoing_armed_conflicts",
+  "retrieved": "2026-04-11",
+  "categories": [
+    {
+      "id": "major",
+      "label": "대형전쟁",
+      "description": "연간 사망자 10,000명 이상",
+      "conflicts": [
+        {
+          "name": "1948",
+          "name_en": "1948",
+          "location": "Arab–Israeli / Iran–Israel conflicts ( Middle Eastern crisis ) Israeli–Palestinian conflict Gaza conflict ( current war ) Spillover in the West Bank Palestinian factional conflicts Salafist insurgency in Gaza Fatah–Hamas conflict Anti-PA insurgency in West Bank Anti-Hamas insurgency in Gaza Israeli–Lebanese conflict Hezbollah–Israel conflict ( during Gaza war ) 2026 Lebanon war Israeli–Syrian conflict ( during Syrian civil war ) Israeli invasion of Syria ( during Gaza war ) Druze insurgency in Southern Syria ( current clashes ) Spillover of the Iran war in Syria Houthi–Israeli conflict in the Red Sea 2026 Iran war 2026 Iranian insurgency Kurdish insurgency in Iran Hormuz Strait crisis Hormuz Strait naval campaign Iranian strikes on Israel Iranian strikes on Arab states Jordan strikes Iraq strikes ( Iraqi Kurdistan ) Saudi Arabia strikes Kuwait strikes Bahrain strikes Qatar strikes UAE strikes Oman strikes",
+          "region": "중동",
+          "start": 1948
+        },
+        {
+          "name": "1955",
+          "name_en": "1955",
+          "location": "Sudanese civil wars ( tribal conflicts ) South Sudanese civil war Abyei border conflict Jonglei clashes North Sudanese civil war Kordofan campaign",
+          "region": "아프리카",
+          "start": 1955
+        },
+        {
+          "name": "1960",
+          "name_en": "1960",
+          "location": "Congolese conflicts Katanga insurgency LRA insurgency ADF insurgency Kivu conflict Ituri conflict M23 offensive Congolese–Rwandan conflict Western DR Congo clashes",
+          "region": "아프리카",
+          "start": 1960
+        },
+        {
+          "name": "1981",
+          "name_en": "1981",
+          "location": "Somali Civil War ( current phase ) Naval operations against Somali piracy American intervention ISIS insurgency in Puntland Puntland counter-terrorism operations Jubaland crisis Spillover in Kenya",
+          "region": "아프리카",
+          "start": 1981
+        },
+        {
+          "name": "2002",
+          "name_en": "2002",
+          "location": "Islamist insurgencies in the Maghreb / Sahel Boko Haram insurgency Insurgency in Mali Insurgency in Niger Insurgency in Burkina Faso Fulani-Mossi conflict Insurgency in Chad JNIM-ISGS war Insurgency in Benin",
+          "region": "아프리카",
+          "start": 2002
+        },
+        {
+          "name": "2006",
+          "name_en": "2006",
+          "location": "Mexican drug war Gulf Cartel infighting Los Zetas infighting Sinaloa Cartel infighting",
+          "region": "기타",
+          "start": 2006
+        },
+        {
+          "name": "2014",
+          "name_en": "2014",
+          "location": "Russo-Ukrainian war ( current phase ) Spillover in Russia Spillover in Belarus",
+          "region": "유럽",
+          "start": 2014
+        }
+      ]
+    },
+    {
+      "id": "conflict",
+      "label": "소규모 분쟁",
+      "description": "연간 사망자 100–999명",
+      "conflicts": [
+        {
+          "name": "1964",
+          "name_en": "1964",
+          "location": "Colombian conflict Catatumbo campaign Operation Southern Spear",
+          "region": "아메리카",
+          "start": 1964
+        },
+        {
+          "name": "1978",
+          "name_en": "1978",
+          "location": "Afghan conflict Afghan–Pakistani border conflict ( since 2024 ) 2026 Afghan–Pakistani war ISIS–Taliban conflict Republican insurgency in Afghanistan Afghan–Tajik border conflict",
+          "region": "남아시아",
+          "start": 1978
+        },
+        {
+          "name": "1993",
+          "name_en": "1993",
+          "location": "Insurgency in Ecuador Ecuadorian conflict ( since 2024 ) Operation Southern Spear",
+          "region": "아메리카",
+          "start": 1993
+        },
+        {
+          "name": "1998",
+          "name_en": "1998",
+          "location": "Civil conflicts in Nigeria Religious violence Boko Haram insurgency Herder–farmer conflicts Nigerian bandit conflict Niger Delta conflict ( since 2016 ) Southeast Nigerian insurgency Spillover in Bakassi, Cameroon",
+          "region": "아프리카",
+          "start": 1998
+        },
+        {
+          "name": "2010",
+          "name_en": "2010",
+          "location": "Venezuelan conflict Pemon conflict Catatumbo campaign Operation Southern Spear",
+          "region": "아메리카",
+          "start": 2010
+        },
+        {
+          "name": "2011",
+          "name_en": "2011",
+          "location": "Yemeni civil war ( crisis ) Al-Qaeda insurgency Saudi Arabian intervention Houthi–Saudi Arabian conflict Houthi–Israeli conflict in the Red Sea",
+          "region": "중동",
+          "start": 2011
+        },
+        {
+          "name": "2012",
+          "name_en": "2012",
+          "location": "Cameroonian conflicts Boko Haram insurgency Anglophone Crisis Pro-Biafran insurgency in Bakassi",
+          "region": "아프리카",
+          "start": 2012
+        },
+        {
+          "name": "2018",
+          "name_en": "2018",
+          "location": "Ethiopian civil conflict Oromo conflict OLA insurgency Gambela conflict Fano insurgency",
+          "region": "아프리카",
+          "start": 2018
+        },
+        {
+          "name": "1918",
+          "name_en": "1918",
+          "location": "Kurdish nationalist conflicts Iranian–Kurdish conflict Iran–PJAK conflict 2026 Kurdish–Iranian crisis Iraqi–Kurdish conflict Turkish–Kurdish conflict Kurdish Hezbollah insurgency Syrian–Kurdish conflict Rojava–Islamist conflict Eastern Syria insurgency SDF–STG clashes",
+          "region": "중동",
+          "start": 1918
+        },
+        {
+          "name": "1922",
+          "name_en": "1922",
+          "location": "Insurgencies in Turkey Kurdish insurgency in Turkey Kurdish Hezbollah insurgency Spillover in Syria Maoist insurgency in Turkey DHKP/C insurgency in Turkey AK Party–Gülen movement conflict",
+          "region": "중동",
+          "start": 1922
+        },
+        {
+          "name": "1943",
+          "name_en": "1943",
+          "location": "Jamaican political conflict",
+          "region": "아메리카",
+          "start": 1943
+        },
+        {
+          "name": "1947",
+          "name_en": "1947",
+          "location": "Kashmir conflict Indo-Pakistani border conflict Indian-Kashmiri insurgency Sino-Indian border conflict",
+          "region": "남아시아",
+          "start": 1947
+        },
+        {
+          "name": "1948",
+          "name_en": "1948",
+          "location": "Insurgencies in Pakistan Afghan–Pakistani border conflict ( Islamist insurgency ) Insurgency in Balochistan Balochi–ISIS conflict Spillover in Iran Insurgency in Khyber Pakhtunkhwa Afghan–Pakistani border clashes (since 2024) 2026 Afghan–Pakistani war Insurgency in Sindh",
+          "region": "중동",
+          "start": 1948
+        },
+        {
+          "name": "1954",
+          "name_en": "1954",
+          "location": "Insurgencies in India Insurgency in Northeast India Insurgency in Arunachal Pradesh Insurgency in Nagaland Insurgency in Manipur Insurgency in Assam Spillover in Myanmar Naxalite–Maoist insurgency Insurgency in Jammu and Kashmir",
+          "region": "남아시아",
+          "start": 1954
+        },
+        {
+          "name": "1962",
+          "name_en": "1962",
+          "location": "Papua conflict",
+          "region": "기타",
+          "start": 1962
+        },
+        {
+          "name": "1969",
+          "name_en": "1969",
+          "location": "Civil conflict in the Philippines New People's Army rebellion ISIS insurgency in the Philippines Philippine drug war",
+          "region": "동남아시아",
+          "start": 1969
+        },
+        {
+          "name": "1975",
+          "name_en": "1975",
+          "location": "Cabinda War",
+          "region": "기타",
+          "start": 1975
+        },
+        {
+          "name": "1988",
+          "name_en": "1988",
+          "location": "Ethnic violence in Papua New Guinea",
+          "region": "기타",
+          "start": 1988
+        },
+        {
+          "name": "1990",
+          "name_en": "1990",
+          "location": "Armed conflict for control of the favelas",
+          "region": "기타",
+          "start": 1990
+        },
+        {
+          "name": "1999",
+          "name_en": "1999",
+          "location": "Insurgencies in Bangladesh Chittagong Hill Tracts conflict Maoist insurgency in Bangladesh Mujibist insurgency",
+          "region": "남아시아",
+          "start": 1999
+        },
+        {
+          "name": "2003",
+          "name_en": "2003",
+          "location": "Iraqi conflict Iraqi–Kurdish conflict ISIS insurgency in Iraq",
+          "region": "중동",
+          "start": 2003
+        },
+        {
+          "name": "2017",
+          "name_en": "2017",
+          "location": "Insurgency in Cabo Delgado",
+          "region": "기타",
+          "start": 2017
+        },
+        {
+          "name": "2022",
+          "name_en": "2022",
+          "location": "Honduran gang crackdown",
+          "region": "기타",
+          "start": 2022
+        }
+      ]
+    },
+    {
+      "id": "skirmish",
+      "label": "소규모 충돌",
+      "description": "연간 사망자 100명 미만",
+      "conflicts": [
+        {
+          "name": "1962",
+          "name_en": "1962",
+          "location": "Cross border attacks in Sabah",
+          "region": "기타",
+          "start": 1962
+        },
+        {
+          "name": "1970",
+          "name_en": "1970",
+          "location": "Western Sahara conflict 2020s Western Saharan clashes",
+          "region": "기타",
+          "start": 1970
+        },
+        {
+          "name": "1975",
+          "name_en": "1975",
+          "location": "Insurgency in Laos",
+          "region": "동남아시아",
+          "start": 1975
+        },
+        {
+          "name": "1980",
+          "name_en": "1980",
+          "location": "Peruvian conflict Peruvian security crisis",
+          "region": "아메리카",
+          "start": 1980
+        },
+        {
+          "name": "1981",
+          "name_en": "1981",
+          "location": "Islamist insurgency in Egypt ( since 2013 )",
+          "region": "중동",
+          "start": 1981
+        },
+        {
+          "name": "1982",
+          "name_en": "1982",
+          "location": "Casamance conflict ECOWAS military intervention in the Gambia",
+          "region": "기타",
+          "start": 1982
+        },
+        {
+          "name": "1988",
+          "name_en": "1988",
+          "location": "Nagorno-Karabakh conflict Armenia–Azerbaijan border crisis",
+          "region": "유럽",
+          "start": 1988
+        },
+        {
+          "name": "2004",
+          "name_en": "2004",
+          "location": "South Thailand insurgency",
+          "region": "동남아시아",
+          "start": 2004
+        },
+        {
+          "name": "2005",
+          "name_en": "2005",
+          "location": "Insurgency in Paraguay",
+          "region": "아메리카",
+          "start": 2005
+        },
+        {
+          "name": "2015",
+          "name_en": "2015",
+          "location": "ISIS insurgency in the North Caucasus Spillover in Azerbaijan",
+          "region": "유럽",
+          "start": 2015
+        },
+        {
+          "name": "2022",
+          "name_en": "2022",
+          "location": "Salvadoran gang crackdown",
+          "region": "기타",
+          "start": 2022
+        },
+        {
+          "name": "Rank",
+          "name_en": "Rank",
+          "location": "Conflict",
+          "region": "기타",
+          "start": 0
+        },
+        {
+          "name": "10°",
+          "name_en": "10°",
+          "location": "Sudanese civil war",
+          "region": "아프리카",
+          "start": 0
+        },
+        {
+          "name": "11°",
+          "name_en": "11°",
+          "location": "Somali civil war",
+          "region": "아프리카",
+          "start": 0
+        },
+        {
+          "name": "12°",
+          "name_en": "12°",
+          "location": "Congolese civil war",
+          "region": "아프리카",
+          "start": 0
+        },
+        {
+          "name": "13°",
+          "name_en": "13°",
+          "location": "Insurgency in Burkina Faso",
+          "region": "아프리카",
+          "start": 0
+        },
+        {
+          "name": "14°",
+          "name_en": "14°",
+          "location": "Mali war",
+          "region": "아프리카",
+          "start": 0
+        },
+        {
+          "name": "15°",
+          "name_en": "15°",
+          "location": "Haitian conflict",
+          "region": "아메리카",
+          "start": 0
+        },
+        {
+          "name": "Country",
+          "name_en": "Country",
+          "location": "Deaths",
+          "region": "기타",
+          "start": 0
+        },
+        {
+          "name": "Africa",
+          "name_en": "Africa",
+          "location": "Central Allied Democratic Forces insurgency Anglophone Crisis Bakassi conflict Cabinda War Central African Republic Civil War Insurgency in Chad Insurgency in the Democratic Republic of the Congo Ituri conflict Western DR Congo clashes Kivu conflict M23 campaign Lord's Resistance Army insurgency East ADF insurgency Ethiopian civil conflict Oromo conflict OLA insurgency War in Amhara Ethnic violence in South Sudan Insurgency in Mozambique Somali Civil War Operation Atalanta North Insurgency in Egypt Insurgency in the Maghreb War in the Sahel Islamist insurgency in Burkina Faso Jihadist insurgency in Niger Libyan crisis Sudanese civil war Sudanese nomadic conflicts Ethnic violence in South Sudan Western Sahara conflict Western Saharan clashes West Communal conflicts in Nigeria Boko Haram insurgency Herder–farmer conflicts in Nigeria Nigerian bandit conflict Religious violence in Nigeria Conflict in the Niger Delta Insurgency in Southeastern Nigeria Bakassi conflict Mali War Western Togoland Rebellion",
+          "region": "아프리카",
+          "start": 0
+        },
+        {
+          "name": "Central",
+          "name_en": "Central",
+          "location": "Allied Democratic Forces insurgency Anglophone Crisis Bakassi conflict Cabinda War Central African Republic Civil War Insurgency in Chad Insurgency in the Democratic Republic of the Congo Ituri conflict Western DR Congo clashes Kivu conflict M23 campaign Lord's Resistance Army insurgency",
+          "region": "아프리카",
+          "start": 0
+        },
+        {
+          "name": "East",
+          "name_en": "East",
+          "location": "ADF insurgency Ethiopian civil conflict Oromo conflict OLA insurgency War in Amhara Ethnic violence in South Sudan Insurgency in Mozambique Somali Civil War Operation Atalanta",
+          "region": "아프리카",
+          "start": 0
+        },
+        {
+          "name": "North",
+          "name_en": "North",
+          "location": "Insurgency in Egypt Insurgency in the Maghreb War in the Sahel Islamist insurgency in Burkina Faso Jihadist insurgency in Niger Libyan crisis Sudanese civil war Sudanese nomadic conflicts Ethnic violence in South Sudan Western Sahara conflict Western Saharan clashes",
+          "region": "아프리카",
+          "start": 0
+        },
+        {
+          "name": "West",
+          "name_en": "West",
+          "location": "Communal conflicts in Nigeria Boko Haram insurgency Herder–farmer conflicts in Nigeria Nigerian bandit conflict Religious violence in Nigeria Conflict in the Niger Delta Insurgency in Southeastern Nigeria Bakassi conflict Mali War Western Togoland Rebellion",
+          "region": "아프리카",
+          "start": 0
+        },
+        {
+          "name": "Americas",
+          "name_en": "Americas",
+          "location": "North Jamaican political conflict Mexican drug war Salvadoran gang crackdown Honduran gang crackdown Haitian conflict South Colombian conflict Ecuadorian security crisis Insurgency in Paraguay Internal conflict in Peru Mapuche conflict Armed conflict for control of the favelas",
+          "region": "아메리카",
+          "start": 0
+        },
+        {
+          "name": "South",
+          "name_en": "South",
+          "location": "Colombian conflict Ecuadorian security crisis Insurgency in Paraguay Internal conflict in Peru Mapuche conflict Armed conflict for control of the favelas",
+          "region": "아메리카",
+          "start": 0
+        },
+        {
+          "name": "Asia",
+          "name_en": "Asia",
+          "location": "East Korean conflict Central Xinjiang conflict South Afghan conflict Islamic State–Taliban conflict Republican insurgency Internal conflict in Bangladesh Chittagong Hill Tracts conflict Maoist insurgency in Bangladesh Insurgency in Northeast India Insurgency in Jammu and Kashmir Insurgency in Pakistan Insurgency in Balochistan Insurgency in Khyber Pakhtunkhwa Afghanistan–Pakistan border conflicts Insurgency in Sindh Sectarian violence in Pakistan South- east Myanmar conflict Myanmar civil war Rakhine conflict Kachin conflict Kalay clashes Karen conflict Karen–Mon conflict Rohingya conflict Conflicts in the Philippines Communist Drug war Southern Thailand insurgency West Abkhazia conflict Georgian–Ossetian conflict Iraq conflict Islamic State insurgency in Iraq Iran–Saudi Arabia proxy war Yemeni crisis Yemeni civil war Saudi–led intervention Iran–Israel proxy conflict Gaza–Israel conflict Gaza war Hezbollah–Israel conflict 2026 Iran war Air campaign in Iranian Kurdistan 2026 Lebanon war Insurgencies in Iran Kurdish separatism in Iran Iran–PJAK conflict Western Iran clashes Insurgency in Sistan and Balochistan Insurgencies in Turkey Maoist insurgency in Turkey DHKP/C insurgency in Turkey Kurdish–Turkish conflict Syrian conflict Turkish intervention America intervention Rojava conflict",
+          "region": "중동",
+          "start": 2026
+        },
+        {
+          "name": "South- east",
+          "name_en": "South- east",
+          "location": "Myanmar conflict Myanmar civil war Rakhine conflict Kachin conflict Kalay clashes Karen conflict Karen–Mon conflict Rohingya conflict Conflicts in the Philippines Communist Drug war Southern Thailand insurgency",
+          "region": "동남아시아",
+          "start": 0
+        },
+        {
+          "name": "Europe",
+          "name_en": "Europe",
+          "location": "East Abkhazia conflict Georgian–Ossetian conflict Islamic State insurgency in the North Caucasus Islamic State insurgency in Azerbaijan Russo-Ukrainian War 2022–present West Dissident Irish republican campaign Loyalist feud Corsican conflict",
+          "region": "유럽",
+          "start": 0
+        },
+        {
+          "name": "Oceania",
+          "name_en": "Oceania",
+          "location": "Melanesia Papua conflict Ethnic violence in Papua New Guinea",
+          "region": "기타",
+          "start": 0
+        },
+        {
+          "name": "Melanesia",
+          "name_en": "Melanesia",
+          "location": "Papua conflict Ethnic violence in Papua New Guinea",
+          "region": "기타",
+          "start": 0
+        }
+      ]
+    }
+  ]
+}

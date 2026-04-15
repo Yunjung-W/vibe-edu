@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vibe Coding Prompts</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Pretendard:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-primary: #0D1117;
+    --bg-secondary: #161B22;
+    --bg-tertiary: #1C2333;
+    --bg-card: #1A1F2E;
+    --bg-code: #0D1117;
+    --border: #30363D;
+    --border-hover: #58A6FF;
+    --text-primary: #E6EDF3;
+    --text-secondary: #8B949E;
+    --text-muted: #6E7681;
+    --accent-blue: #58A6FF;
+    --accent-green: #3FB950;
+    --accent-orange: #F0883E;
+    --accent-purple: #BC8CFF;
+    --accent-pink: #F778BA;
+    --accent-cyan: #39D2C0;
+    --copy-btn: #21262D;
+    --copy-btn-hover: #30363D;
+    --copy-success: #3FB950;
+    --tag-kr: #58A6FF;
+    --tag-en: #F0883E;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  .hero {
+    text-align: center;
+    padding: 80px 24px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at 50% 80%, rgba(88,166,255,0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 20% 50%, rgba(188,140,255,0.05) 0%, transparent 40%);
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 16px;
+    background: rgba(88,166,255,0.1);
+    border: 1px solid rgba(88,166,255,0.2);
+    border-radius: 20px;
+    font-size: 13px;
+    color: var(--accent-blue);
+    font-weight: 500;
+    margin-bottom: 24px;
+    letter-spacing: 0.02em;
+  }
+
+  .hero h1 {
+    font-size: clamp(28px, 5vw, 44px);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin-bottom: 12px;
+    background: linear-gradient(135deg, #E6EDF3 0%, #8B949E 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: relative;
+  }
+
+  .hero p {
+    font-size: 16px;
+    color: var(--text-secondary);
+    max-width: 560px;
+    margin: 0 auto;
+    font-weight: 300;
+  }
+
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+
+  .prompt-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 32px;
+    overflow: hidden;
+    transition: border-color 0.3s ease;
+  }
+
+  .prompt-card:hover {
+    border-color: rgba(88,166,255,0.3);
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  
+  .card-number {
+    min-width: 36px;
+    height: 36px;
+    padding: 0 10px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .card-number.n1 { background: rgba(88,166,255,0.15); color: var(--accent-blue); }
+  .card-number.n2 { background: rgba(63,185,80,0.15); color: var(--accent-green); }
+  .card-number.n2-1 { background: rgba(63,185,80,0.15); color: var(--accent-green); }
+  .card-number.n2-2 { background: rgba(63,185,80,0.15); color: var(--accent-green); }
+  .card-number.n3 { background: rgba(240,136,62,0.15); color: var(--accent-orange); }
+  .card-number.n4 { background: rgba(188,140,255,0.15); color: var(--accent-purple); }
+  .card-number.n5 { background: rgba(247,120,186,0.15); color: var(--accent-pink); }
+
+  .card-title-area {
+    flex: 1;
+  }
+
+  .card-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+  }
+
+  .card-subtitle {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  .prompt-section {
+    padding: 20px 24px;
+  }
+
+  .prompt-section + .prompt-section {
+    border-top: 1px solid var(--border);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+
+  .lang-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 6px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .lang-tag.kr {
+    background: rgba(88,166,255,0.12);
+    color: var(--tag-kr);
+  }
+
+  .lang-tag.en {
+    background: rgba(240,136,62,0.12);
+    color: var(--tag-en);
+  }
+
+  .copy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    background: var(--copy-btn);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-secondary);
+    font-size: 13px;
+    font-family: 'Pretendard', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+  }
+
+  .copy-btn:hover {
+    background: var(--copy-btn-hover);
+    color: var(--text-primary);
+    border-color: var(--border-hover);
+  }
+
+  .copy-btn.copied {
+    background: rgba(63,185,80,0.15);
+    border-color: var(--copy-success);
+    color: var(--copy-success);
+  }
+
+  .copy-btn svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+
+  .prompt-text {
+    background: var(--bg-code);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 20px;
+    font-size: 13.5px;
+    line-height: 1.75;
+    color: var(--text-primary);
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-family: 'Pretendard', sans-serif;
+    max-height: 400px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+
+  .prompt-text::-webkit-scrollbar { width: 6px; }
+  .prompt-text::-webkit-scrollbar-track { background: transparent; }
+  .prompt-text::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  .claude-session {
+    width: 100%;
+    padding: 10px 12px;
+    
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+
+    color: #1835D0;
+    background-color: #EAF4FD;
+
+    border-radius: 6px;
+    box-sizing: border-box;
+
+    margin: 28px 0 12px;
+  }
+
+  .footer {
+    text-align: center;
+    padding: 32px 24px;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 13px;
+  }
+
+  @media (max-width: 640px) {
+    .hero { padding: 56px 20px 32px; }
+    .container { padding: 0 16px 60px; }
+    .card-header { padding: 16px; gap: 12px; }
+    .prompt-section { padding: 16px; }
+    .section-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-badge">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+    Vibe Coding Workshop
+  </div>
+  <h1>바이브 코딩 프롬프트 모음</h1>
+  <p>교육용 프로젝트 프롬프트 5종 — 한글/영문 버전을 복사해서 사용하세요</p>
+</div>
+
+<div class="container" id="cards"></div>
+
+<div class="footer">Vibe Coding Education Materials — 2026</div>
+
+<script>
+const prompts = [
+  {
+    num: "1",
+    title: "조는 학생 깨우기 게임",
+    subtitle: "Classroom Dozing Game",
+    kr: `게임을 만들려고해. 규칙은 교실에 책상이 5개 놓여 있고 책상마다 두 명의 학생이 앉아서 수업을 듣고 있어. 학생들이 수업을 듣다가 졸기 시작하면 마우스로 클릭해서 조는 학생을 깨워야해. 학생이 졸기 시작한 후 2초가 지날 때까지 깨우지 못하면 실패이고, 총 세번 실패하면 게임이 끝나. 학생들이 조는 순서는 랜덤으로 처음 3초간은 전체 10명의 학생 중 한 명씩만 졸고, 이후에는 1초 간격으로 두 명씩 졸고, 10초가 지나면 1초 간격으로 최대 4명까지 졸아. "1st-project" 폴더를 만들고 게임이 동작하는 html을 저장해줘`,
+    en: `I want to make a game. The rules are: there are 5 desks in a classroom, and two students are sitting at each desk listening to a lesson. As students start to doze off during class, you have to click on them with the mouse to wake them up. If you fail to wake a student within 2 seconds of them starting to doze, it counts as a failure, and if you fail 3 times in total, the game is over. The order in which students doze off is random — for the first 3 seconds, only one out of the 10 students dozes at a time; after that, two students doze every 1 second; and after 10 seconds have passed, up to 4 students doze every 1 second. Create a folder called ‘1st-project’ and save a working game HTML file in it.`
+  },
+  {
+    num: "2-1",
+    title: "국제 정세 보고서",
+    subtitle: "Global Conflict Report",
+    kr: `아래 웹사이트에 직접 접속해서 현재 전 세계에서 진행 중인 분쟁 목록을 가져와줘. https://en.wikipedia.org/wiki/List_of_ongoing_armed_conflicts 
+
+가져온 데이터를 파일로 저장해두고, 그 데이터를 이용해서 "2nd-project" 폴더를 만들고 그 밑에 index.html 보고서를 만들어줘. 
+
+보고서 조건: 
+배경은 어두운 색, 전문적인 뉴스 느낌으로 만들어줘 
+맨 위에 "글로벌 정세 리포트 2026" 제목과 오늘 날짜를 크게 보여줘 
+숫자 요약 카드 3개: 전체 분쟁 건수, 대규모 분쟁 수, 소규모 분쟁 수 
+가져온 분쟁 목록을 표로 정리해줘 (지역, 분쟁명, 규모) 
+화면 하단에 데이터 출처 사이트 주소를 표시해줘 
+
+만약 인터넷 연결 문제가 생기면 data 폴더에 있는 파일을 대신 사용해줘.`,
+    en: `Access the website below directly and retrieve the list of currently ongoing conflicts around the world: https://en.wikipedia.org/wiki/List_of_ongoing_armed_conflicts
+
+Save the retrieved data to a file, then create a folder called "2nd-project" and build an index.html report inside it using that data.
+
+Report requirements:
+Dark background with a professional news-style design
+At the top, display the title "Global Situation Report 2026" and today's date prominently
+3 summary stat cards: total number of conflicts, number of major conflicts, number of minor conflicts
+Organize the retrieved conflict list into a table (region, conflict name, scale)
+Display the data source URL at the bottom of the page
+
+If there are any internet connection issues, use the file in the data folder as a fallback instead.`
+  },
+  {
+    num: "2-2",
+    title: "국제 정세 보고서 확장",
+    subtitle: "Extended Report — Military & Peace Index",
+    kr: `아래 두 웹사이트에서 데이터를 가져와서 index.html 보고서에 추가해줘.
+
+첫 번째 — 국가별 군사비 지출:
+https://en.wikipedia.org/wiki/List_of_countries_by_military_expenditures
+
+두 번째 — 글로벌 평화 지수 순위:
+https://en.wikipedia.org/wiki/Global_Peace_Index
+
+추가할 내용:
+1. 군사비 지출 상위 10개 국가를 가로 막대 그래프로 보여줘.
+   한국이 목록에 있으면 한국 막대만 다른 색으로 강조해줘.
+
+2. 평화 지수 순위에서 아시아 국가들만 따로 뽑아서 표로 보여줘.
+   점수가 낮을수록(더 평화로울수록) 초록색, 높을수록 빨간색으로 표시해줘.
+
+가져온 데이터는 각각 파일로 저장해줘.`,
+    en: `Get data from the two websites below and add it to the index.html report.
+
+First — Military expenditure by country:
+https://en.wikipedia.org/wiki/List_of_countries_by_military_expenditures
+Second — Global Peace Index ranking:
+https://en.wikipedia.org/wiki/Global_Peace_Index
+
+Content to add:
+1. Show the top 10 countries by military expenditure as a horizontal bar chart. If South Korea appears, highlight its bar in a different color.
+
+2. Extract only Asian countries from the peace index and show them in a table. Lower score (more peaceful) = green, higher = red.
+
+Save the retrieved data to separate files.`
+  },
+  {
+    num: "3",
+    title: "Python 보고서 생성기",
+    subtitle: "Python Report Generator",
+    kr: `이번엔 방식을 바꿔보자. 
+아래 사이트에서 분쟁 데이터를 데이터를 파일로 저장하고, 그 파일을 읽어서 index.html 보고서를 만드는 report.py 파이썬 프로그램을 개발해서 "3rd-project" 폴더에 저장해줘. 
+https://en.wikipedia.org/wiki/List_of_ongoing_armed_conflicts
+
+인터넷 연결 문제가 생기면 data 폴더의 파일을 대신 써줘. 
+report.py 파일 개발이 완료되면 실행해줘.`,
+    en: `Let's change the approach this time. 
+Retrieve the conflict data from the website below, save it to a file, and then develop a Python program called report.py that reads that file and generates an index.html report. Save everything in a folder called "3rd-project". 
+https://en.wikipedia.org/wiki/List_of_ongoing_armed_conflicts
+
+If there are any internet connection issues, use the file in the data folder as a fallback instead. 
+Once the report.py file is complete, run it.`
+  },
+  {
+    num: "4",
+    title: "글로벌 자동차 산업 대시보드",
+    subtitle: "Global Auto Industry Dashboard (React + TypeScript)",
+    kr: `글로벌 자동차 산업 인사이트 대시보드 웹앱을 만들어줘.
+
+# 프로젝트 개요
+자동차 산업에 영향을 주는 국제 정세 변화와 세계 5대 자동차 그룹의 
+지역별 판매량 변화를 하나의 화면에서 볼 수 있는 인터랙티브 대시보드야.
+React + TypeScript 프로젝트로 만들어서, "4th-project" 폴더에 저장해줘.
+
+# 기술 스택
+- React + TypeScript + Vite
+- 차트 라이브러리: Recharts
+- 스타일링: Tailwind CSS
+- 아이콘: Lucide React
+- 별도 백엔드 없이 프론트엔드만으로 동작 (데이터는 JSON 파일로 내장)
+
+# 디자인 컨셉: 현대자동차 글로벌 웹사이트 스타일
+
+현대자동차 공식 웹사이트(hyundai.com/worldwide, hyundaimotorgroup.com)의
+디자인 언어를 참고해서 전체 Look & Feel을 맞춰줘.
+
+## 핵심 디자인 원칙: "Modern Premium — 깨끗하고 여백이 넉넉한 화이트 기반"
+
+### 1) 색상 시스템
+메인 배경은 반드시 하얀색(#FFFFFF)으로, 현대자동차 웹사이트처럼
+깨끗하고 넓은 여백을 충분히 활용하는 레이아웃으로 만들어줘.
+
+CSS 변수로 아래 컬러 팔레트를 정의해줘:
+- --hyundai-blue: #002C5F (현대 브랜드 블루 — 주요 포인트 컬러, 제목, 강조)
+- --hyundai-dark: #000000 (본문 텍스트, 수치)
+- --hyundai-gray-dark: #60605B (보조 텍스트, 부제목)
+- --hyundai-gray-mid: #999999 (비활성 텍스트, 구분선)
+- --hyundai-gray-light: #F4F4F4 (카드 배경, 섹션 구분)
+- --hyundai-sand: #BFBAAF (미세한 악센트, 테두리)
+- --hyundai-white: #FFFFFF (메인 배경)
+- --hyundai-active-blue: #0073E6 (인터랙티브 요소, 호버, 버튼)
+- --hyundai-positive: #00825A (양수 변화, 상승)
+- --hyundai-negative: #D32F2F (음수 변화, 하락)
+
+차트 라인 색상 (5개 자동차 그룹):
+- --color-toyota: #EB0A1E (토요타 레드)
+- --color-vw: #001E50 (폭스바겐 다크블루)
+- --color-hyundai: #002C5F (현대 블루)
+- --color-gm: #0170CE (GM 블루)
+- --color-stellantis: #243971 (스텔란티스 네이비)
+
+### 2) 타이포그래피
+현대자동차는 자체 서체 "Hyundai Sans"를 사용하지만,
+웹에서 가장 유사한 Google 폰트를 사용해줘:
+
+- 영문 제목(Display): "Outfit" (Google Fonts) — 기하학적이고 깔끔한 산세리프
+- 영문 본문(Body): "Outfit" weight 300~400
+- 한글: "Pretendard" (CDN) — 현대적이고 깔끔한 한글 고딕체
+- 숫자/데이터: "Outfit" weight 500~600, tabular-nums
+
+폰트 사이즈 시스템:
+- 대시보드 메인 제목: 32px, font-weight 600, letter-spacing -0.02em
+- 섹션 제목: 20px, font-weight 500
+- 차트 레이블: 12px, font-weight 400, color #60605B
+- 데이터 수치: 24px, font-weight 600, tabular-nums
+- 본문 설명: 14px, font-weight 300, line-height 1.7
+
+### 3) 레이아웃 & 여백
+현대자동차 웹사이트의 특징인 넉넉한 여백과 깔끔한 그리드를 따라줘:
+
+- 최대 너비: 1440px, 가운데 정렬
+- 좌우 패딩: 80px (데스크톱), 24px (모바일)
+- 섹션 간 간격: 64px
+- 카드 간 간격: 24px
+- 카드 스타일: border-radius 0px (직각 모서리 — 현대차 스타일),
+  배경 #F4F4F4, 테두리 없음, 미세한 그림자만
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06)
+- 구분선: 1px solid #E5E5E5 (매우 얇고 은은하게)
+
+### 4) 인터랙션 & 모션
+현대자동차 웹사이트처럼 절제된 부드러운 애니메이션:
+
+- 호버 전환: transition 0.3s cubic-bezier(0.25, 0.1, 0.25, 1)
+- 스크롤 진입: opacity 0→1, translateY(20px→0), 0.6s ease-out
+- 차트 진입: 왼쪽에서 오른쪽으로 부드럽게 그려지는 애니메이션
+- 버튼 호버: 배경색 미세하게 어둡게, 텍스트 색상 유지
+- 클릭 피드백: scale(0.98) 후 복귀
+- 과도한 바운스나 화려한 효과 금지 — 절제가 핵심
+
+### 5) 컴포넌트 스타일 가이드
+
+[헤더]
+- 하얀 배경, 하단에 얇은 구분선
+- 왼쪽: 대시보드 제목 (--hyundai-blue 색상)
+- 오른쪽: 언어 전환 (KR/EN), 테마 토글은 없음 (화이트 테마 고정)
+- 고정 높이: 72px
+- 현대자동차 로고는 사용하지 않되, 스타일만 참고
+
+[필터 바]
+- 배경 #F4F4F4, 상하 패딩 20px
+- 필터 버튼: 알약형(pill shape), 흰 배경, 1px #E5E5E5 테두리
+- 활성 필터: --hyundai-blue 배경, 흰색 텍스트
+- 비활성 필터: 흰 배경, #60605B 텍스트
+- 필터 그룹 사이 세로 구분선 |
+
+[데이터 카드]
+- 배경: #FFFFFF
+- 상단 작은 레이블: 12px, #999999, uppercase, letter-spacing 0.08em
+- 중앙 큰 수치: 32px, font-weight 600, #000000
+- 하단 변화율: 14px, 양수면 #00825A ↑, 음수면 #D32F2F ↓
+- 카드 하단에 얇은 색상 바(4px) — 해당 지역 또는 그룹의 대표색
+
+[차트 영역]
+- 하얀 배경, 넉넉한 상하좌우 패딩 (40px)
+- 그리드선: #F0F0F0 (매우 연한 회색), 점선(dashed)
+- 축 레이블: 12px, #999999
+- 축 선: 표시하지 않음 (현대차 스타일은 축 선 없이 깔끔)
+- 범례: 차트 상단에 수평 배치, 각 항목에 컬러 원(8px) + 텍스트
+
+[이벤트 마커]
+- 차트 위 수직 점선: 심각도별 색상 (높음: #D32F2F, 중간: #F59E0B, 낮음: #999999)
+- 마커 상단 아이콘: 12px 원형, 해당 심각도 색상
+- 클릭 시 팝업: 흰 배경, 미세한 그림자, 좌측에 4px 색상 바
+
+[이벤트 타임라인 카드]
+- 흰 배경, 좌측에 수직 타임라인 선(2px, #E5E5E5)
+- 각 카드 좌측에 시점 원형 마커(12px)
+- 날짜: 12px, #999999
+- 제목: 16px, font-weight 500, #000000
+- 설명: 14px, font-weight 300, #60605B
+- 영향 지역 뱃지: 알약형, 배경 #F4F4F4, 텍스트 #60605B, 12px
+
+# 대상 자동차 그룹 (2025년 글로벌 판매량 순위 기준)
+1. Toyota Group (일본) - 약 1,132만대
+2. Volkswagen Group (독일) - 약 910만대
+3. Hyundai Motor Group (한국) - 약 730만대
+4. General Motors (미국) - 약 600만대
+5. Stellantis (네덜란드/이탈리아) - 약 540만대
+
+# 지역 구분
+4개 지역으로 나눠서 데이터를 구성해줘:
+- 미주 (Americas): 미국, 캐나다, 중남미 포함
+- 유럽 (Europe): EU, 영국, 동유럽 포함
+- 아시아태평양 (Asia-Pacific): 중국, 일본, 한국, 동남아, 호주 포함
+- 중동/아프리카 (MEA): 중동, 아프리카 포함
+
+# 내장 데이터 구조
+
+## 1) 판매량 데이터 (sales-data.json)
+2020년부터 2025년까지 6년간의 분기별 판매량 데이터를 만들어줘.
+아래 실제 트렌드를 반영해서 현실적인 수치를 넣어줘:
+
+실제 트렌드 참고:
+- Toyota: 2025년 총 1,132만대 기록, 미국 시장 7.3% 성장, 중국 보합, 유럽 약세
+- Volkswagen: 2025년 약 910만대, 아시아에서 -6.6% 하락, 미주 +4.5% 성장
+- Hyundai: 2025년 약 730만대, 전체적으로 소폭 성장, EV 라인업 확대
+- GM: 2025년 약 600만대, 북미 중심, 중국 시장 계속 축소
+- Stellantis: 2025년 약 540만대, 하반기 11% 반등, 구조조정 효과
+
+데이터 형식:
+{
+  "company": "Toyota",
+  "year": 2025,
+  "quarter": "Q1",
+  "region": "americas",
+  "sales": 780000,
+  "yoy_change": 5.2
+}
+
+## 2) 국제 정세 이벤트 데이터 (events-data.json)
+자동차 산업에 영향을 준 주요 사건들을 타임라인으로 만들어줘.
+각 이벤트에 영향 지역과 심각도를 표시해줘.
+
+아래 실제 사건들을 포함해줘:
+
+2020년:
+- COVID-19 팬데믹 (전 세계, 심각도: 높음) - 글로벌 생산 중단
+- 유가 폭락 (중동, 심각도: 중간) - 중동 수요 감소
+
+2021년:
+- 글로벌 반도체 부족 (전 세계, 심각도: 높음) - 생산 차질
+- 수에즈 운하 봉쇄 (유럽/아시아, 심각도: 중간) - 물류 지연
+
+2022년:
+- 러시아-우크라이나 전쟁 (유럽, 심각도: 높음) - 에너지 위기, 부품 공급 차질
+- 중국 제로코로나 봉쇄 (아시아, 심각도: 높음) - 중국 시장 위축
+- 미국 IRA법 시행 (미주, 심각도: 중간) - EV 보조금 재편
+
+2023년:
+- 유럽 EV 보조금 축소 (유럽, 심각도: 중간) - EV 판매 둔화
+- 중국 EV 가격전쟁 (아시아, 심각도: 중간) - 마진 압박
+- UAW 파업 (미주, 심각도: 중간) - GM/Stellantis/Ford 생산 중단
+
+2024년:
+- 중국산 EV 관세 부과 - EU 45%, 미국 100% (유럽/미주, 심각도: 높음)
+- 홍해 후티 공격 (중동/유럽, 심각도: 중간) - 해운 비용 급등
+- 일본 엔저 심화 (아시아, 심각도: 중간) - 일본차 가격 경쟁력 상승
+
+2025년:
+- 트럼프 자동차 관세 25% (전 세계, 심각도: 높음) - 수입차 비용 급등
+- 미-일 무역합의 15% (미주/아시아, 심각도: 중간) - 일본차 관세 완화
+- 미-EU 무역합의 15% (미주/유럽, 심각도: 중간) - 유럽차 관세 완화
+- 중국 희토류 수출 통제 (전 세계, 심각도: 높음) - EV 부품 공급 위기
+- 미-중 관세 145% 일시 유예 (미주/아시아, 심각도: 높음) - 무역전쟁 격화
+- 미 대법원 IEEPA 관세 위헌 판결 (전 세계, 심각도: 높음) - 관세 정책 전면 재편
+
+이벤트 데이터 형식:
+{
+  "id": "event_001",
+  "date": "2020-03",
+  "title": "COVID-19 팬데믹",
+  "title_en": "COVID-19 Pandemic",
+  "description": "전 세계 자동차 공장 가동 중단, 수요 급감",
+  "description_en": "Global auto plant shutdowns, demand plunge",
+  "severity": "high",
+  "affected_regions": ["americas", "europe", "asia_pacific", "mea"],
+  "category": "pandemic"
+}
+
+카테고리 종류: pandemic, trade_policy, geopolitics, supply_chain, regulation, labor
+
+# 화면 구성
+
+## 메인 레이아웃
+하얀 배경 기반, 넉넉한 여백, 현대자동차 웹사이트처럼 프리미엄하면서도 
+깔끔한 대시보드로 만들어줘. 과도한 장식 요소 없이 데이터와 콘텐츠에 집중.
+
+## 상단 영역
+- 헤더: 하얀 배경, 하단 1px 구분선
+  - 왼쪽: 대시보드 제목 "Global Auto Industry Intelligence" 
+    (--hyundai-blue 컬러, Outfit 600)
+  - 오른쪽: KR | EN 언어 전환
+- 부제목: "Tracking Sales Performance & Geopolitical Impact"
+  (14px, #60605B, 제목 바로 아래)
+
+- 필터 영역: 배경 #F4F4F4, 가로 전체
+  - 기간 선택: 2020~2025 범위 슬라이더
+  - 지역 선택: 전체 / 미주 / 유럽 / 아시아태평양 / 중동아프리카 
+    (알약형 토글, 다중 선택)
+  - 자동차 그룹 선택: 전체 / 개별 토글 
+    (각 그룹 색상의 작은 원 + 이름)
+  - 표시 단위: 분기별 / 연간 토글
+
+## 지역별 요약 카드 (4개 가로 배치)
+필터 바 아래에 4개 카드를 한 줄로 배치:
+- 각 지역별: 지역명 (작은 영문 레이블), 총 판매량 (큰 숫자),
+  전년대비 성장률 (% + 화살표), 1위 그룹명
+- 카드 하단 4px 색상 바: 미주 파랑, 유럽 초록, 아시아 주황, 중동 보라
+
+## 메인 차트 영역 (가장 핵심!)
+하나의 통합 차트에 판매량과 이벤트를 동시에 보여줘:
+
+1. **라인 차트 (판매량)**:
+   - X축: 시간 (2020 Q1 ~ 2025 Q4)
+   - Y축 왼쪽: 판매량 (만 대)
+   - 선택된 각 자동차 그룹별로 별도 라인 (2px 두께, 부드러운 곡선)
+   - 전년동기대비(YoY) 증감률을 라인 위에 작은 레이블로 표시
+   - 호버 시 해당 분기의 상세 수치 툴팁 표시
+   - 툴팁 스타일: 흰 배경, 미세한 그림자, 좌측 4px 색상 바
+
+2. **이벤트 마커 (국제 정세)**:
+   - 차트 위에 수직 점선으로 주요 이벤트 시점 표시
+   - 심각도에 따라 색상: 높음(#D32F2F), 중간(#F59E0B), 낮음(#999999)
+   - 마커 상단에 작은 원형 아이콘
+   - 클릭 시 이벤트 상세 정보 팝업
+   - 이벤트가 영향을 준 지역의 뱃지 표시
+
+3. **YoY 변화 영역**:
+   - 메인 차트 바로 아래에 전년동기대비 변화율 막대그래프
+   - 양수는 #00825A, 음수는 #D32F2F
+   - 메인 라인차트와 X축 동기화
+   - 높이는 메인 차트의 1/4 정도
+
+## 하단 정보 영역 (2열 레이아웃)
+
+왼쪽 열 (60%):
+1. **이벤트 타임라인 패널**:
+   - 제목: "Geopolitical Events Timeline" (20px, weight 500)
+   - 좌측에 수직 타임라인 선(2px, #E5E5E5)
+   - 각 이벤트를 시간순 카드로 나열
+   - 카드: 날짜, 제목, 한줄 설명, 영향 지역 뱃지들, 심각도 색상 점
+   - 카테고리별 필터 탭: 전체 | 무역정책 | 지정학 | 공급망 | 규제 | 노동
+   - 카드 클릭 시 메인 차트에서 해당 시점 하이라이트
+
+오른쪽 열 (40%):
+2. **그룹별 순위 변동 차트**:
+   - 제목: "Rankings Shift" (20px, weight 500)
+   - 2020~2025 각 연도별 5개 그룹의 순위를 범프 차트(bump chart)로 표시
+   - 각 라인은 그룹 색상
+   - 순위 변동 시 숫자 뱃지 표시
+
+# 인터랙션
+
+1. 차트의 이벤트 마커를 클릭하면 하단 이벤트 카드가 하이라이트되고 
+   해당 이벤트의 상세 설명이 팝업으로 나타남
+
+2. 하단 이벤트 카드를 클릭하면 메인 차트에서 해당 시점에 
+   수직 하이라이트 영역이 표시됨
+
+3. 지역 필터를 변경하면 해당 지역의 판매량만 표시되고 
+   관련 이벤트만 필터링됨
+
+4. 자동차 그룹을 토글하면 해당 그룹의 라인이 추가/제거됨
+
+5. 호버 시 크로스헤어와 함께 모든 그룹의 해당 분기 수치를 
+   비교할 수 있는 툴팁 표시
+
+# 반응형
+- 데스크톱(1200px+): 풀 레이아웃
+- 태블릿(768px~1199px): 하단 영역 2열 → 1열로
+- 모바일(~767px): 단일 열, 차트 가로 스크롤 지원, 요약 카드 2x2 그리드
+
+# 추가 요구사항
+- 화이트 테마 고정 (다크모드 없음 — 현대차 웹사이트 스타일)
+- 차트 데이터를 PNG 또는 CSV로 내보내기 버튼 
+  (버튼 스타일: 아웃라인, --hyundai-blue 테두리)
+- 페이지 로딩 시 차트가 왼쪽에서 오른쪽으로 자연스럽게 그려지는 애니메이션
+- 한국어/영어 언어 전환 지원 (모든 텍스트 i18n)
+- 모든 숫자는 천 단위 콤마 표시
+- 페이지 최하단 푸터: 가는 구분선 위에 "Data sources may not reflect 
+  actual figures. For demonstration purposes only." 표시 (#999999, 12px)
+
+이 대시보드를 완성한 후에 npm run dev로 실행해서 확인할 수 있게 해줘.`,
+    en: `Create a Global Automotive Industry Insights Dashboard web app.
+
+# Project Overview
+An interactive dashboard that displays international geopolitical changes affecting the automotive industry and regional sales trends of the world's top 5 automotive groups on a single screen. Create a React + TypeScript project and save it under the ‘4th-project’ directory. Please make sure that all text displayed on the dashboard is in English.
+
+# Tech Stack
+- React + TypeScript + Vite
+- Chart library: Recharts
+- Styling: Tailwind CSS
+- Icons: Lucide React
+- Frontend-only, no separate backend (data embedded as JSON files)
+
+# Design Concept: Hyundai Motor Global Website Style
+
+Reference the design language of the official Hyundai Motor websites (hyundai.com/worldwide, hyundaimotorgroup.com) to match the overall Look & Feel.
+
+## Core Design Principle: "Modern Premium — Clean, spacious, white-based layout"
+
+### 1) Color System
+The main background must be white (#FFFFFF), with a clean layout that makes generous use of whitespace, just like the Hyundai Motor website.
+
+Define the following color palette as CSS variables:
+- --hyundai-blue: #002C5F (Hyundai brand blue — primary accent color, headings, emphasis)
+- --hyundai-dark: #000000 (body text, figures)
+- --hyundai-gray-dark: #60605B (secondary text, subtitles)
+- --hyundai-gray-mid: #999999 (inactive text, dividers)
+- --hyundai-gray-light: #F4F4F4 (card backgrounds, section dividers)
+- --hyundai-sand: #BFBAAF (subtle accents, borders)
+- --hyundai-white: #FFFFFF (main background)
+- --hyundai-active-blue: #0073E6 (interactive elements, hover states, buttons)
+- --hyundai-positive: #00825A (positive change, growth)
+- --hyundai-negative: #D32F2F (negative change, decline)
+
+Chart line colors (5 automotive groups):
+- --color-toyota: #EB0A1E (Toyota red)
+- --color-vw: #001E50 (Volkswagen dark blue)
+- --color-hyundai: #002C5F (Hyundai blue)
+- --color-gm: #0170CE (GM blue)
+- --color-stellantis: #243971 (Stellantis navy)
+
+### 2) Typography
+Hyundai Motor uses its proprietary "Hyundai Sans" typeface, but use the closest Google Fonts equivalent for the web:
+
+- English headings (Display): "Outfit" (Google Fonts) — geometric, clean sans-serif
+- English body (Body): "Outfit" weight 300–400
+- Korean: "Pretendard" (CDN) — modern, clean Korean gothic
+- Numbers/Data: "Outfit" weight 500–600, tabular-nums
+
+Font size system:
+- Dashboard main title: 32px, font-weight 600, letter-spacing -0.02em
+- Section titles: 20px, font-weight 500
+- Chart labels: 12px, font-weight 400, color #60605B
+- Data figures: 24px, font-weight 600, tabular-nums
+- Body descriptions: 14px, font-weight 300, line-height 1.7
+
+### 3) Layout & Spacing
+Follow the Hyundai Motor website's signature generous whitespace and clean grid:
+
+- Max width: 1440px, centered
+- Horizontal padding: 80px (desktop), 24px (mobile)
+- Section gap: 64px
+- Card gap: 24px
+- Card style: border-radius 0px (sharp corners — Hyundai style), background #F4F4F4, no border, subtle shadow only: box-shadow: 0 1px 3px rgba(0,0,0,0.06)
+- Dividers: 1px solid #E5E5E5 (very thin and subtle)
+
+### 4) Interaction & Motion
+Restrained, smooth animations like the Hyundai Motor website:
+
+- Hover transitions: transition 0.3s cubic-bezier(0.25, 0.1, 0.25, 1)
+- Scroll-in: opacity 0→1, translateY(20px→0), 0.6s ease-out
+- Chart entry: smooth left-to-right drawing animation
+- Button hover: subtly darken background, maintain text color
+- Click feedback: scale(0.98) then return
+- No excessive bounce or flashy effects — restraint is key
+
+### 5) Component Style Guide
+
+[Header]
+- White background, thin bottom divider
+- Left: Dashboard title (--hyundai-blue color)
+- Right: Language toggle (KR/EN), no theme toggle (white theme fixed)
+- Fixed height: 72px
+- Do not use the Hyundai Motor logo, but reference the style only
+
+[Filter Bar]
+- Background #F4F4F4, vertical padding 20px
+- Filter buttons: pill-shaped, white background, 1px #E5E5E5 border
+- Active filter: --hyundai-blue background, white text
+- Inactive filter: white background, #60605B text
+- Vertical separator | between filter groups
+
+[Data Cards]
+- Background: #FFFFFF
+- Top small label: 12px, #999999, uppercase, letter-spacing 0.08em
+- Center large figure: 32px, font-weight 600, #000000
+- Bottom change rate: 14px, positive #00825A ↑, negative #D32F2F ↓
+- Thin color bar at card bottom (4px) — representative color for that region or group
+
+[Chart Area]
+- White background, generous padding all around (40px)
+- Grid lines: #F0F0F0 (very light gray), dashed
+- Axis labels: 12px, #999999
+- Axis lines: hidden (Hyundai style is clean without axis lines)
+- Legend: horizontally arranged above chart, each item with color dot (8px) + text
+
+[Event Markers]
+- Vertical dashed lines on chart: color by severity (high: #D32F2F, medium: #F59E0B, low: #999999)
+- Small circular icon at marker top, in severity color
+- Click opens popup: white background, subtle shadow, 4px color bar on left side
+
+[Event Timeline Cards]
+- White background, vertical timeline line on left (2px, #E5E5E5)
+- Circular marker (12px) on the left of each card
+- Date: 12px, #999999
+- Title: 16px, font-weight 500, #000000
+- Description: 14px, font-weight 300, #60605B
+- Affected region badges: pill-shaped, background #F4F4F4, text #60605B, 12px
+
+# Target Automotive Groups (Based on 2025 Global Sales Rankings)
+1. Toyota Group (Japan) — approx. 11.32M units
+2. Volkswagen Group (Germany) — approx. 9.10M units
+3. Hyundai Motor Group (South Korea) — approx. 7.30M units
+4. General Motors (USA) — approx. 6.00M units
+5. Stellantis (Netherlands/Italy) — approx. 5.40M units
+
+# Regional Breakdown
+Organize data across 4 regions:
+- Americas: USA, Canada, Latin America
+- Europe: EU, UK, Eastern Europe
+- Asia-Pacific: China, Japan, South Korea, Southeast Asia, Australia
+- MEA (Middle East & Africa): Middle East, Africa
+
+# Embedded Data Structure
+
+## 1) Sales Data (sales-data.json)
+Create quarterly sales data spanning 6 years from 2020 to 2025. Populate with realistic figures reflecting the actual trends below:
+
+Actual trend references:
+- Toyota: Recorded 11.32M total in 2025, 7.3% growth in US market, flat in China, weak in Europe
+- Volkswagen: Approx. 9.10M in 2025, -6.6% decline in Asia, +4.5% growth in Americas
+- Hyundai: Approx. 7.30M in 2025, modest overall growth, expanding EV lineup
+- GM: Approx. 6.00M in 2025, North America-centric, continued China market contraction
+- Stellantis: Approx. 5.40M in 2025, 11% rebound in H2, restructuring effects
+
+Data format:
+{
+  "company": "Toyota",
+  "year": 2025,
+  "quarter": "Q1",
+  "region": "americas",
+  "sales": 780000,
+  "yoy_change": 5.2
+}
+
+## 2) Geopolitical Events Data (events-data.json)
+Create a timeline of major events that impacted the automotive industry. Mark each event with affected regions and severity.
+
+Include the following real events:
+
+2020:
+- COVID-19 Pandemic (Global, Severity: High) — Global production shutdowns
+- Oil price crash (Middle East, Severity: Medium) — Reduced Middle East demand
+
+2021:
+- Global semiconductor shortage (Global, Severity: High) — Production disruptions
+- Suez Canal blockage (Europe/Asia, Severity: Medium) — Logistics delays
+
+2022:
+- Russia-Ukraine War (Europe, Severity: High) — Energy crisis, parts supply disruption
+- China Zero-COVID lockdowns (Asia, Severity: High) — Chinese market contraction
+- US IRA enacted (Americas, Severity: Medium) — EV subsidy restructuring
+
+2023:
+- European EV subsidy cuts (Europe, Severity: Medium) — EV sales slowdown
+- China EV price war (Asia, Severity: Medium) — Margin pressure
+- UAW Strike (Americas, Severity: Medium) — GM/Stellantis/Ford production halts
+
+2024:
+- Chinese EV tariffs — EU 45%, US 100% (Europe/Americas, Severity: High)
+- Houthi Red Sea attacks (MEA/Europe, Severity: Medium) — Shipping cost surge
+- Japanese yen depreciation deepens (Asia, Severity: Medium) — Japanese car price competitiveness rises
+
+2025:
+- Trump auto tariff 25% (Global, Severity: High) — Import car cost surge
+- US-Japan trade deal 15% (Americas/Asia, Severity: Medium) — Japanese car tariff relief
+- US-EU trade deal 15% (Americas/Europe, Severity: Medium) — European car tariff relief
+- China rare earth export controls (Global, Severity: High) — EV parts supply crisis
+- US-China 145% tariff temporary suspension (Americas/Asia, Severity: High) — Trade war escalation
+- US Supreme Court IEEPA tariff unconstitutional ruling (Global, Severity: High) — Full tariff policy overhaul
+
+Event data format:
+{
+  "id": "event_001",
+  "date": "2020-03",
+  "title": "COVID-19 Pandemic",
+  "title_ko": "COVID-19 팬데믹",
+  "description": "Global auto plant shutdowns, demand plunge",
+  "description_ko": "전 세계 자동차 공장 가동 중단, 수요 급감",
+  "severity": "high",
+  "affected_regions": ["americas", "europe", "asia_pacific", "mea"],
+  "category": "pandemic"
+}
+
+Categories: pandemic, trade_policy, geopolitics, supply_chain, regulation, labor
+
+# Screen Layout
+
+## Main Layout
+White background base with generous whitespace, creating a premium yet clean dashboard like the Hyundai Motor website. No excessive decorative elements — focus on data and content.
+
+## Top Area
+- Header: White background, 1px bottom divider
+  - Left: Dashboard title "Global Auto Industry Intelligence" (--hyundai-blue color, Outfit 600)
+  - Right: KR | EN language toggle
+- Subtitle: "Tracking Sales Performance & Geopolitical Impact" (14px, #60605B, directly below title)
+
+- Filter Area: Background #F4F4F4, full width
+  - Period selection: 2020–2025 range slider
+  - Region selection: All / Americas / Europe / Asia-Pacific / MEA (pill-shaped toggles, multi-select)
+  - Automotive group selection: All / individual toggles (small colored dot + name for each group)
+  - Display unit: Quarterly / Annual toggle
+
+## Regional Summary Cards (4 cards in a row)
+Below the filter bar, place 4 cards horizontally:
+- For each region: Region name (small English label), total sales (large number), YoY growth rate (% + arrow), leading group name
+- 4px color bar at card bottom: Americas blue, Europe green, Asia-Pacific orange, MEA purple
+
+## Main Chart Area (The core section!)
+Show sales and events simultaneously in one integrated chart:
+
+1. **Line Chart (Sales)**:
+   - X-axis: Time (2020 Q1 – 2025 Q4)
+   - Y-axis left: Sales (in units of 10,000)
+   - Separate line for each selected automotive group (2px thickness, smooth curves)
+   - Small YoY change labels displayed above lines
+   - Hover shows detailed tooltip for that quarter
+   - Tooltip style: white background, subtle shadow, 4px color bar on left
+
+2. **Event Markers (Geopolitical Events)**:
+   - Vertical dashed lines on the chart marking major event timepoints
+   - Color by severity: High (#D32F2F), Medium (#F59E0B), Low (#999999)
+   - Small circular icon at marker top
+   - Click opens event detail popup
+   - Badges showing affected regions
+
+3. **YoY Change Area**:
+   - Bar chart of YoY change rates directly below the main chart
+   - Positive: #00825A, Negative: #D32F2F
+   - X-axis synchronized with main line chart
+   - Height approximately 1/4 of the main chart
+
+## Bottom Information Area (2-column layout)
+
+Left column (60%):
+1. **Event Timeline Panel**:
+   - Title: "Geopolitical Events Timeline" (20px, weight 500)
+   - Vertical timeline line on the left (2px, #E5E5E5)
+   - Events listed as chronological cards
+   - Card: date, title, one-line description, affected region badges, severity color dot
+   - Category filter tabs: All | Trade Policy | Geopolitics | Supply Chain | Regulation | Labor
+   - Clicking a card highlights the corresponding timepoint on the main chart
+
+Right column (40%):
+2. **Group Rankings Shift Chart**:
+   - Title: "Rankings Shift" (20px, weight 500)
+   - Bump chart showing rankings of all 5 groups for each year from 2020–2025
+   - Each line in group color
+   - Number badges displayed on rank changes
+
+# Interactions
+
+1. Clicking an event marker on the chart highlights the corresponding event card below and opens a detailed event description popup
+
+2. Clicking an event card below highlights the corresponding timepoint on the main chart with a vertical highlight area
+
+3. Changing region filters shows only that region's sales data and filters related events
+
+4. Toggling automotive groups adds/removes their lines from the chart
+
+5. Hovering shows a crosshair with a tooltip comparing all groups' figures for that quarter
+
+# Responsive Design
+- Desktop (1200px+): Full layout
+- Tablet (768px–1199px): Bottom area from 2 columns → 1 column
+- Mobile (–767px): Single column, horizontal scroll for charts, summary cards in 2×2 grid
+
+# Additional Requirements
+- White theme fixed (no dark mode — Hyundai website style)
+- Export chart data as PNG or CSV buttons (button style: outlined, --hyundai-blue border)
+- Smooth left-to-right chart drawing animation on page load
+- Korean/English language toggle support (all text i18n)
+- All numbers displayed with thousand separators
+- Page footer at very bottom: thin divider above "Data sources may not reflect actual figures. For demonstration purposes only." (#999999, 12px)
+
+After completing this dashboard, make it runnable with \`npm run dev\` for verification.`
+  }
+];
+
+const copyIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>`;
+const checkIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
+
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+function copyToClipboard(text, btnEl) {
+  const lang = btnEl.dataset.lang;
+
+  const LABELS = {
+    kr: {
+      default: '복사',
+      copied: '복사됨'
+    },
+    en: {
+      default: 'Copy',
+      copied: 'Copied'
+    }
+  };
+
+  navigator.clipboard.writeText(text).then(() => {
+    btnEl.classList.add('Copied');
+    btnEl.innerHTML = checkIcon + LABELS[lang].copied;
+
+    setTimeout(() => {
+      btnEl.classList.remove('Copied');
+      btnEl.innerHTML = copyIcon + LABELS[lang].default;
+    }, 2000);
+  });
+}
+
+const container = document.getElementById('cards');
+const sessionStarts = new Set(['1', '2-1', '3', '4']);
+
+
+prompts.forEach((p, i) => {
+  if (sessionStarts.has(p.num)) {
+    const sessionDiv = document.createElement('div');
+    sessionDiv.className = 'claude-session';
+
+    const koSpan = document.createElement('span');
+    koSpan.className = 'text-ko';
+    koSpan.textContent = '⭐ Claude에서 [+ New Session]을 클릭하여 신규 세션에서 프롬프트를 입력합니다.';
+
+    const br = document.createElement('br');
+
+    const enSpan = document.createElement('span');
+    enSpan.className = 'text-en';
+    enSpan.textContent = '⭐ In Claude, click [+ New Session] and input the prompt in a new session.';
+
+    sessionDiv.appendChild(koSpan);
+    sessionDiv.appendChild(br);
+    sessionDiv.appendChild(enSpan);
+
+    container.appendChild(sessionDiv);
+  }
+
+  const card = document.createElement('div');
+  card.className = 'prompt-card';
+
+  const krId = `kr-${i}`;
+  const enId = `en-${i}`;
+  const krBtnId = `btn-kr-${i}`;
+  const enBtnId = `btn-en-${i}`;
+
+  card.innerHTML = `
+    <div class="card-header">
+      <div class="card-number n${p.num}">${p.num}</div>
+      <div class="card-title-area">
+        <div class="card-title">${escapeHtml(p.title)}</div>
+        <div class="card-subtitle">${escapeHtml(p.subtitle)}</div>
+      </div>
+    </div>
+
+    <div class="prompt-section">
+      <div class="section-header">
+        <span class="lang-tag kr">KR 한글</span>
+        <button class="copy-btn" data-lang="kr" id="${krBtnId}">
+          ${copyIcon}복사
+        </button>
+      </div>
+      <div class="prompt-text" id="${krId}">
+        ${escapeHtml(p.kr)}
+      </div>
+    </div>
+
+    <div class="prompt-section">
+      <div class="section-header">
+        <span class="lang-tag en">EN English</span>
+        <button class="copy-btn" data-lang="en" id="${enBtnId}">
+          ${copyIcon}Copy
+        </button>
+      </div>
+      <div class="prompt-text" id="${enId}">
+        ${escapeHtml(p.en)}
+      </div>
+    </div>
+  `;
+
+  container.appendChild(card);
+
+  document.getElementById(krBtnId).addEventListener('click', function() {
+    copyToClipboard(p.kr, this);
+  });
+
+  document.getElementById(enBtnId).addEventListener('click', function() {
+    copyToClipboard(p.en, this);
+  });
+  });
+</script>
+</body>
+</html>

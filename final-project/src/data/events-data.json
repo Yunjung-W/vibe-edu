@@ -1,0 +1,211 @@
+[
+  {
+    "id": "event_001",
+    "date": "2020-03",
+    "title": "COVID-19 팬데믹",
+    "title_en": "COVID-19 Pandemic",
+    "description": "전 세계 자동차 공장 가동 중단, 수요 급감으로 글로벌 판매량 25% 감소",
+    "description_en": "Global auto plant shutdowns and demand collapse, global sales down 25%",
+    "severity": "high",
+    "affected_regions": ["americas", "europe", "asia_pacific", "mea"],
+    "category": "pandemic"
+  },
+  {
+    "id": "event_002",
+    "date": "2020-04",
+    "title": "유가 폭락",
+    "title_en": "Oil Price Collapse",
+    "description": "코로나와 OPEC 갈등으로 WTI 마이너스 기록, 중동 자동차 수요 급감",
+    "description_en": "WTI turns negative amid COVID and OPEC dispute; MEA auto demand collapses",
+    "severity": "medium",
+    "affected_regions": ["mea"],
+    "category": "geopolitics"
+  },
+  {
+    "id": "event_003",
+    "date": "2021-03",
+    "title": "글로벌 반도체 부족",
+    "title_en": "Global Semiconductor Shortage",
+    "description": "차량용 반도체 공급 부족으로 글로벌 생산 차질 발생, 수백만 대 생산 손실",
+    "description_en": "Auto-grade chip shortage causes millions of lost production units globally",
+    "severity": "high",
+    "affected_regions": ["americas", "europe", "asia_pacific", "mea"],
+    "category": "supply_chain"
+  },
+  {
+    "id": "event_004",
+    "date": "2021-03",
+    "title": "수에즈 운하 봉쇄",
+    "title_en": "Suez Canal Blockage",
+    "description": "에버 기번 좌초로 운하 6일 봉쇄, 부품 물류 지연 및 비용 급등",
+    "description_en": "Ever Given runs aground, blocking canal 6 days; parts logistics delayed",
+    "severity": "medium",
+    "affected_regions": ["europe", "asia_pacific"],
+    "category": "supply_chain"
+  },
+  {
+    "id": "event_005",
+    "date": "2022-02",
+    "title": "러시아-우크라이나 전쟁",
+    "title_en": "Russia–Ukraine War",
+    "description": "에너지 위기와 니켈·팔라듐 등 핵심 원자재 공급 차질로 유럽 생산 비용 급등",
+    "description_en": "Energy crisis and nickel/palladium shortages spike European production costs",
+    "severity": "high",
+    "affected_regions": ["europe"],
+    "category": "geopolitics"
+  },
+  {
+    "id": "event_006",
+    "date": "2022-04",
+    "title": "중국 제로코로나 봉쇄",
+    "title_en": "China Zero-COVID Lockdowns",
+    "description": "상하이·창춘 등 주요 도시 봉쇄로 중국 자동차 공장 2개월 이상 가동 중단",
+    "description_en": "Shanghai and Changchun lockdowns halt major auto factories for 2+ months",
+    "severity": "high",
+    "affected_regions": ["asia_pacific"],
+    "category": "pandemic"
+  },
+  {
+    "id": "event_007",
+    "date": "2022-08",
+    "title": "미국 IRA법 시행",
+    "title_en": "U.S. Inflation Reduction Act",
+    "description": "북미 생산 EV에만 세액공제 적용, 한국·유럽 완성차 업체 차별 논란",
+    "description_en": "EV tax credits restricted to North America-built vehicles; Korean/EU OEMs disadvantaged",
+    "severity": "medium",
+    "affected_regions": ["americas"],
+    "category": "regulation"
+  },
+  {
+    "id": "event_008",
+    "date": "2023-02",
+    "title": "유럽 EV 보조금 축소",
+    "title_en": "European EV Subsidy Cuts",
+    "description": "독일 등 주요국 EV 보조금 삭감, 유럽 내 EV 판매 성장 둔화",
+    "description_en": "Germany and others slash EV subsidies, slowing EV sales growth across Europe",
+    "severity": "medium",
+    "affected_regions": ["europe"],
+    "category": "regulation"
+  },
+  {
+    "id": "event_009",
+    "date": "2023-06",
+    "title": "중국 EV 가격전쟁",
+    "title_en": "China EV Price War",
+    "description": "BYD·테슬라 가격 인하 경쟁으로 마진 압박, 외국 브랜드 점유율 하락 가속",
+    "description_en": "BYD and Tesla price cuts pressure margins; foreign brand market share erodes",
+    "severity": "medium",
+    "affected_regions": ["asia_pacific"],
+    "category": "trade_policy"
+  },
+  {
+    "id": "event_010",
+    "date": "2023-09",
+    "title": "UAW 파업",
+    "title_en": "UAW Strike",
+    "description": "미국 자동차 노조 전면 파업으로 GM·Stellantis·Ford 생산 6주 이상 중단",
+    "description_en": "UAW strikes GM, Stellantis, and Ford simultaneously; 6+ weeks of lost production",
+    "severity": "medium",
+    "affected_regions": ["americas"],
+    "category": "labor"
+  },
+  {
+    "id": "event_011",
+    "date": "2024-06",
+    "title": "중국산 EV 관세 부과",
+    "title_en": "Chinese EV Tariffs (EU 45% / US 100%)",
+    "description": "EU 최대 45%, 미국 100% 관세 부과로 중국산 EV 수입 사실상 차단",
+    "description_en": "EU imposes up to 45%, US 100% tariffs on Chinese EVs, effectively blocking imports",
+    "severity": "high",
+    "affected_regions": ["europe", "americas"],
+    "category": "trade_policy"
+  },
+  {
+    "id": "event_012",
+    "date": "2024-01",
+    "title": "홍해 후티 공격",
+    "title_en": "Red Sea Houthi Attacks",
+    "description": "후티 반군의 상선 공격으로 수에즈 우회 항로 급증, 해운 비용 300% 이상 급등",
+    "description_en": "Houthi attacks on shipping reroute vessels around Africa; freight costs triple",
+    "severity": "medium",
+    "affected_regions": ["mea", "europe"],
+    "category": "geopolitics"
+  },
+  {
+    "id": "event_013",
+    "date": "2024-07",
+    "title": "일본 엔저 심화",
+    "title_en": "Japanese Yen Weakening",
+    "description": "엔/달러 160엔 돌파, 일본 자동차의 수출 가격 경쟁력 사상 최고 수준",
+    "description_en": "Yen hits 160/USD, boosting Japanese automakers' export price competitiveness",
+    "severity": "medium",
+    "affected_regions": ["asia_pacific"],
+    "category": "trade_policy"
+  },
+  {
+    "id": "event_014",
+    "date": "2025-03",
+    "title": "트럼프 자동차 관세 25%",
+    "title_en": "Trump 25% Auto Tariffs",
+    "description": "수입차 전면 25% 관세 부과 발효, 외국 완성차 업체 미국 수출 원가 급등",
+    "description_en": "25% tariff on all imported vehicles takes effect, sharply raising costs for foreign OEMs",
+    "severity": "high",
+    "affected_regions": ["americas", "europe", "asia_pacific", "mea"],
+    "category": "trade_policy"
+  },
+  {
+    "id": "event_015",
+    "date": "2025-06",
+    "title": "미-일 무역합의 15%",
+    "title_en": "US-Japan Trade Deal (15%)",
+    "description": "미일 협상 타결로 일본차 관세 25%→15% 완화, 토요타·혼다 수혜",
+    "description_en": "US-Japan deal reduces auto tariffs from 25% to 15%, benefiting Toyota and Honda",
+    "severity": "medium",
+    "affected_regions": ["americas", "asia_pacific"],
+    "category": "trade_policy"
+  },
+  {
+    "id": "event_016",
+    "date": "2025-07",
+    "title": "미-EU 무역합의 15%",
+    "title_en": "US-EU Trade Deal (15%)",
+    "description": "미EU 협상으로 유럽차 관세 25%→15% 완화, VW·Stellantis 등 수혜",
+    "description_en": "US-EU deal cuts auto tariffs from 25% to 15%, benefiting VW, Stellantis, etc.",
+    "severity": "medium",
+    "affected_regions": ["americas", "europe"],
+    "category": "trade_policy"
+  },
+  {
+    "id": "event_017",
+    "date": "2025-04",
+    "title": "중국 희토류 수출 통제",
+    "title_en": "China Rare Earth Export Controls",
+    "description": "중국이 희토류 및 자석 수출 통제 발동, EV 모터·배터리 공급망 전 세계 차질",
+    "description_en": "China restricts rare earth and magnet exports, disrupting EV supply chains globally",
+    "severity": "high",
+    "affected_regions": ["americas", "europe", "asia_pacific", "mea"],
+    "category": "supply_chain"
+  },
+  {
+    "id": "event_018",
+    "date": "2025-05",
+    "title": "미-중 관세 145% 일시 유예",
+    "title_en": "US-China 145% Tariff Pause",
+    "description": "90일 협상 유예로 미중 관세 145%→30% 잠시 완화, 무역전쟁 재격화 우려",
+    "description_en": "90-day truce cuts US-China tariffs from 145% to 30%, but trade war risks remain high",
+    "severity": "high",
+    "affected_regions": ["americas", "asia_pacific"],
+    "category": "trade_policy"
+  },
+  {
+    "id": "event_019",
+    "date": "2025-08",
+    "title": "미 대법원 IEEPA 관세 위헌 판결",
+    "title_en": "US Supreme Court IEEPA Tariff Ruling",
+    "description": "IEEPA 기반 관세 위헌 판결로 트럼프 관세 체계 전면 재편 가능성, 시장 혼란",
+    "description_en": "SCOTUS rules IEEPA tariffs unconstitutional, triggering broad policy uncertainty",
+    "severity": "high",
+    "affected_regions": ["americas", "europe", "asia_pacific", "mea"],
+    "category": "trade_policy"
+  }
+]

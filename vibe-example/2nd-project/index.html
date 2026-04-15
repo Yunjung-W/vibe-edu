@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>글로벌 정세 리포트 2026</title>
+  <style>
+    :root {
+      --bg-base:    #0a0c10;
+      --bg-panel:   #111520;
+      --bg-card:    #161b28;
+      --border:     #1e2535;
+      --accent-red: #e53e3e;
+      --accent-ora: #dd6b20;
+      --accent-yel: #d69e2e;
+      --accent-blu: #3182ce;
+      --text-pri:   #e2e8f0;
+      --text-sec:   #8899aa;
+      --text-muted: #4a5568;
+      --red-glow:   rgba(229,62,62,.15);
+      --ora-glow:   rgba(221,107,32,.15);
+      --yel-glow:   rgba(214,158,46,.15);
+      --blu-glow:   rgba(49,130,206,.15);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg-base);
+      color: var(--text-pri);
+      font-family: 'Segoe UI', 'Apple SD Gothic Neo', sans-serif;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      background: linear-gradient(180deg, #0d111c 0%, var(--bg-base) 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 2.5rem 2rem 2rem;
+      text-align: center;
+    }
+
+    .header-tag {
+      display: inline-block;
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--accent-red);
+      border: 1px solid var(--accent-red);
+      border-radius: 2px;
+      padding: .2rem .6rem;
+      margin-bottom: 1rem;
+    }
+
+    header h1 {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -.02em;
+      color: var(--text-pri);
+    }
+
+    header h1 span { color: var(--accent-red); }
+
+    .header-sub {
+      margin-top: .6rem;
+      font-size: .95rem;
+      color: var(--text-sec);
+      letter-spacing: .04em;
+    }
+
+    .header-date {
+      margin-top: .4rem;
+      font-size: .8rem;
+      color: var(--text-muted);
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    /* ── Main layout ── */
+    main { max-width: 1200px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+
+    /* ── Summary cards ── */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    @media (max-width: 640px) {
+      .cards { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.6rem 1.8rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 3px;
+    }
+
+    .card.total::before  { background: var(--accent-blu); }
+    .card.major::before  { background: var(--accent-red); }
+    .card.minor::before  { background: var(--accent-yel); }
+
+    .card .label {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: .5rem;
+    }
+
+    .card.total .label  { color: var(--accent-blu); }
+    .card.major .label  { color: var(--accent-red); }
+    .card.minor .label  { color: var(--accent-yel); }
+
+    .card .number {
+      font-size: 3rem;
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: .4rem;
+    }
+
+    .card.total .number  { color: var(--accent-blu); }
+    .card.major .number  { color: var(--accent-red); }
+    .card.minor .number  { color: var(--accent-yel); }
+
+    .card .desc {
+      font-size: .8rem;
+      color: var(--text-sec);
+      line-height: 1.5;
+    }
+
+    /* ── Section title ── */
+    .section-title {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+    }
+
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── Filter bar ── */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .filter-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-sec);
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: .35rem .9rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all .15s;
+    }
+
+    .filter-btn:hover { border-color: var(--text-sec); color: var(--text-pri); }
+
+    .filter-btn.active-all    { border-color: var(--accent-blu); color: var(--accent-blu); background: var(--blu-glow); }
+    .filter-btn.active-major  { border-color: var(--accent-red); color: var(--accent-red); background: var(--red-glow); }
+    .filter-btn.active-minor  { border-color: var(--accent-ora); color: var(--accent-ora); background: var(--ora-glow); }
+    .filter-btn.active-conf   { border-color: var(--accent-yel); color: var(--accent-yel); background: var(--yel-glow); }
+    .filter-btn.active-skirmish { border-color: #68d391; color: #68d391; background: rgba(104,211,145,.12); }
+
+    /* ── Table ── */
+    .table-wrap {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .875rem;
+    }
+
+    thead tr {
+      background: #0d1117;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      padding: .85rem 1rem;
+      text-align: left;
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid var(--border);
+      transition: background .12s;
+    }
+
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: rgba(255,255,255,.025); }
+
+    td {
+      padding: .8rem 1rem;
+      vertical-align: middle;
+      line-height: 1.45;
+    }
+
+    td:first-child { color: var(--text-muted); font-size: .75rem; font-weight: 600; }
+
+    .conflict-name {
+      font-weight: 600;
+      color: var(--text-pri);
+    }
+
+    .location-text {
+      font-size: .78rem;
+      color: var(--text-sec);
+      margin-top: .2rem;
+    }
+
+    .region-badge {
+      display: inline-block;
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: .05em;
+      padding: .15rem .55rem;
+      border-radius: 3px;
+      white-space: nowrap;
+    }
+
+    .r-me    { background: rgba(229,62,62,.15);  color: #fc8181; border: 1px solid rgba(229,62,62,.25); }
+    .r-af    { background: rgba(214,158,46,.15); color: #f6c05c; border: 1px solid rgba(214,158,46,.25); }
+    .r-eu    { background: rgba(49,130,206,.15); color: #76aee4; border: 1px solid rgba(49,130,206,.25); }
+    .r-sa    { background: rgba(104,211,145,.15);color: #68d391; border: 1px solid rgba(104,211,145,.25); }
+    .r-la    { background: rgba(183,148,246,.15);color: #b794f4; border: 1px solid rgba(183,148,246,.25); }
+    .r-sea   { background: rgba(237,137,54,.15); color: #f6ad55; border: 1px solid rgba(237,137,54,.25); }
+    .r-oc    { background: rgba(129,230,217,.15);color: #81e6d9; border: 1px solid rgba(129,230,217,.25); }
+
+    .scale-badge {
+      display: inline-block;
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      padding: .2rem .6rem;
+      border-radius: 3px;
+      white-space: nowrap;
+    }
+
+    .s-major    { background: var(--red-glow); color: var(--accent-red); border: 1px solid rgba(229,62,62,.3); }
+    .s-minor    { background: var(--ora-glow); color: #ed8936;           border: 1px solid rgba(237,137,54,.3); }
+    .s-conflict { background: var(--yel-glow); color: var(--accent-yel); border: 1px solid rgba(214,158,46,.3); }
+    .s-skirmish { background: rgba(104,211,145,.1); color: #68d391;      border: 1px solid rgba(104,211,145,.25); }
+
+    .year-text {
+      color: var(--text-sec);
+      font-size: .82rem;
+    }
+
+    .deaths-text {
+      font-size: .78rem;
+      color: var(--text-sec);
+    }
+
+    /* ── Region breakdown ── */
+    .region-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: .8rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .region-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1rem 1.2rem;
+    }
+
+    .region-card .rc-name {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: .3rem;
+    }
+
+    .region-card .rc-num {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--text-pri);
+    }
+
+    .region-card .rc-bar {
+      margin-top: .5rem;
+      height: 3px;
+      background: var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .region-card .rc-fill {
+      height: 100%;
+      border-radius: 2px;
+      background: var(--accent-red);
+      transition: width .4s ease;
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.8rem 2rem;
+      text-align: center;
+    }
+
+    .footer-label {
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: .4rem;
+    }
+
+    footer a {
+      color: var(--accent-blu);
+      text-decoration: none;
+      font-size: .85rem;
+      word-break: break-all;
+    }
+
+    footer a:hover { text-decoration: underline; }
+
+    .footer-note {
+      margin-top: .6rem;
+      font-size: .75rem;
+      color: var(--text-muted);
+    }
+
+    /* hidden row */
+    tr.hidden { display: none; }
+
+    /* ── Military expenditure chart ── */
+    .mil-chart-wrap {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem 1.8rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .mil-row {
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+      margin-bottom: .7rem;
+    }
+
+    .mil-row:last-child { margin-bottom: 0; }
+
+    .mil-label {
+      width: 140px;
+      flex-shrink: 0;
+      font-size: .82rem;
+      color: var(--text-sec);
+      text-align: right;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .mil-label.korea { color: #f6e05e; font-weight: 700; }
+
+    .mil-bar-track {
+      flex: 1;
+      height: 28px;
+      background: rgba(255,255,255,.04);
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .mil-bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      background: var(--accent-blu);
+      transition: width .5s ease;
+      display: flex;
+      align-items: center;
+      padding-left: .5rem;
+    }
+
+    .mil-bar-fill.korea { background: #d69e2e; }
+
+    .mil-bar-val {
+      font-size: .75rem;
+      font-weight: 700;
+      color: #fff;
+      white-space: nowrap;
+    }
+
+    .mil-gdp {
+      width: 55px;
+      flex-shrink: 0;
+      font-size: .72rem;
+      color: var(--text-muted);
+      text-align: right;
+    }
+
+    .mil-source {
+      margin-top: 1rem;
+      font-size: .72rem;
+      color: var(--text-muted);
+    }
+
+    /* ── GPI table ── */
+    .gpi-filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .gpi-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-sec);
+      font-size: .73rem;
+      font-weight: 600;
+      letter-spacing: .05em;
+      padding: .3rem .8rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all .15s;
+    }
+
+    .gpi-btn:hover { border-color: var(--text-sec); color: var(--text-pri); }
+    .gpi-btn.active { border-color: #68d391; color: #68d391; background: rgba(104,211,145,.1); }
+
+    .gpi-score-cell {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+    }
+
+    .gpi-score-pill {
+      display: inline-block;
+      min-width: 48px;
+      text-align: center;
+      font-size: .78rem;
+      font-weight: 700;
+      padding: .22rem .5rem;
+      border-radius: 4px;
+    }
+
+    .gpi-bar {
+      flex: 1;
+      height: 6px;
+      border-radius: 3px;
+      max-width: 100px;
+    }
+
+    .gpi-region-tag {
+      display: inline-block;
+      font-size: .67rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      padding: .15rem .5rem;
+      border-radius: 3px;
+    }
+
+    .gr-ea  { background: rgba(49,130,206,.15); color: #76aee4; border: 1px solid rgba(49,130,206,.25); }
+    .gr-sea { background: rgba(237,137,54,.15); color: #f6ad55; border: 1px solid rgba(237,137,54,.25); }
+    .gr-sa  { background: rgba(104,211,145,.15);color: #68d391; border: 1px solid rgba(104,211,145,.25); }
+    .gr-me  { background: rgba(229,62,62,.15);  color: #fc8181; border: 1px solid rgba(229,62,62,.25); }
+    .gr-ca  { background: rgba(183,148,246,.15);color: #b794f4; border: 1px solid rgba(183,148,246,.25); }
+
+    .gpi-kr { background: rgba(214,158,46,.08); }
+    .gpi-kr td:first-child { color: #f6e05e !important; }
+    .gpi-kr .gpi-country { color: #f6e05e; font-weight: 700; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-tag">LIVE INTELLIGENCE BRIEF</div>
+  <h1>글로벌 정세 리포트 <span>2026</span></h1>
+  <p class="header-sub">전 세계 진행 중인 무력 분쟁 현황 분석</p>
+  <p class="header-date">기준일: 2026년 4월 11일 &nbsp;|&nbsp; 출처: Wikipedia — List of ongoing armed conflicts</p>
+</header>
+
+<main>
+
+  <!-- Summary Cards -->
+  <div class="cards">
+    <div class="card total">
+      <div class="label">전체 분쟁 건수</div>
+      <div class="number" id="cnt-total">47</div>
+      <div class="desc">현재 전 세계에서 진행 중인<br>모든 무력 분쟁</div>
+    </div>
+    <div class="card major">
+      <div class="label">대규모 분쟁</div>
+      <div class="number" id="cnt-major">19</div>
+      <div class="desc">연간 사망자 1,000명 이상<br>(Major War + Minor War)</div>
+    </div>
+    <div class="card minor">
+      <div class="label">소규모 분쟁</div>
+      <div class="number" id="cnt-minor">28</div>
+      <div class="desc">연간 사망자 999명 이하<br>(Conflict + Skirmish)</div>
+    </div>
+  </div>
+
+  <!-- Region breakdown -->
+  <div class="section-title">지역별 분포</div>
+  <div class="region-grid" id="regionGrid"></div>
+
+  <!-- Military Expenditure Chart -->
+  <div class="section-title">국가별 군사비 지출 상위 10위 (2024)</div>
+  <div class="mil-chart-wrap">
+    <div id="milChart"></div>
+    <p class="mil-source">출처: SIPRI 2024 &nbsp;|&nbsp; <a href="https://en.wikipedia.org/wiki/List_of_countries_by_military_expenditures" target="_blank" rel="noopener" style="color:var(--accent-blu);text-decoration:none;">Wikipedia — List of countries by military expenditures</a></p>
+  </div>
+
+  <!-- GPI Asia Table -->
+  <div class="section-title">글로벌 평화 지수 — 아시아 국가 (2025)</div>
+  <div class="gpi-filter-bar">
+    <button class="gpi-btn active" onclick="gpiFilter('all')">전체</button>
+    <button class="gpi-btn" onclick="gpiFilter('East Asia')">동아시아</button>
+    <button class="gpi-btn" onclick="gpiFilter('Southeast Asia')">동남아시아</button>
+    <button class="gpi-btn" onclick="gpiFilter('South Asia')">남아시아</button>
+    <button class="gpi-btn" onclick="gpiFilter('Middle East')">중동</button>
+    <button class="gpi-btn" onclick="gpiFilter('Central Asia')">중앙아시아</button>
+  </div>
+  <div class="table-wrap" style="margin-bottom:2.5rem">
+    <table>
+      <thead>
+        <tr>
+          <th>순위</th>
+          <th>국가</th>
+          <th>권역</th>
+          <th>GPI 점수 (낮을수록 평화)</th>
+        </tr>
+      </thead>
+      <tbody id="gpiTable"></tbody>
+    </table>
+  </div>
+
+  <!-- Table -->
+  <div class="section-title">전체 분쟁 목록</div>
+
+  <div class="filter-bar">
+    <button class="filter-btn active-all"     onclick="filter('all')">전체</button>
+    <button class="filter-btn"                onclick="filter('Major War')">대형전쟁</button>
+    <button class="filter-btn"                onclick="filter('Minor War')">소형전쟁</button>
+    <button class="filter-btn"                onclick="filter('Conflict')">분쟁</button>
+    <button class="filter-btn"                onclick="filter('Skirmish')">소규모 충돌</button>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>분쟁명</th>
+          <th>지역</th>
+          <th>규모</th>
+          <th>시작</th>
+          <th>누적 사망</th>
+        </tr>
+      </thead>
+      <tbody id="conflictTable"></tbody>
+    </table>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-label">데이터 출처</div>
+  <a href="https://en.wikipedia.org/wiki/List_of_ongoing_armed_conflicts" target="_blank" rel="noopener">
+    https://en.wikipedia.org/wiki/List_of_ongoing_armed_conflicts
+  </a><br style="margin:.3rem 0">
+  <a href="https://en.wikipedia.org/wiki/List_of_countries_by_military_expenditures" target="_blank" rel="noopener">
+    https://en.wikipedia.org/wiki/List_of_countries_by_military_expenditures
+  </a><br style="margin:.3rem 0">
+  <a href="https://en.wikipedia.org/wiki/Global_Peace_Index" target="_blank" rel="noopener">
+    https://en.wikipedia.org/wiki/Global_Peace_Index
+  </a>
+  <p class="footer-note">본 보고서는 Wikipedia의 공개 데이터를 기반으로 작성되었습니다. 수치는 추정치이며 지속적으로 변동될 수 있습니다.</p>
+</footer>
+
+<script>
+const conflicts = [
+  { name:"Arab-Israeli / Iran-Israel Conflicts", location:"Israel, Palestine, Lebanon, Syria, Iran, Yemen",         region:"Middle East",   start:1948, deaths:"254,000–263,000+",       category:"Major War" },
+  { name:"Myanmar Civil War",                    location:"Myanmar, India, Bangladesh, Thailand, China",            region:"Southeast Asia", start:1948, deaths:"214,000+",              category:"Major War" },
+  { name:"Sudanese Civil Wars",                  location:"Sudan, South Sudan, Chad, CAR, Egypt, Ethiopia, Libya", region:"Africa",         start:1955, deaths:"1,521,000+",            category:"Major War" },
+  { name:"Congolese Conflicts",                  location:"DR Congo, CAR, South Sudan, Rwanda, Burundi, Uganda",   region:"Africa",         start:1960, deaths:"219,700+",              category:"Major War" },
+  { name:"Somali Civil War",                     location:"Somalia, Kenya",                                         region:"Africa",         start:1981, deaths:"376,200–1,000,000+",   category:"Major War" },
+  { name:"Islamist Insurgencies (Maghreb/Sahel)",location:"Algeria, Burkina Faso, Cameroon, Chad, Libya, Mali, Niger, Nigeria, Tunisia", region:"Africa", start:2002, deaths:"485,500+", category:"Major War" },
+  { name:"Mexican Drug War",                     location:"Mexico, Belize, Honduras, Guatemala, Nicaragua, US",    region:"Latin America",  start:2006, deaths:"135,000–417,000",       category:"Major War" },
+  { name:"Russo-Ukrainian War",                  location:"Ukraine, Russia, Belarus",                              region:"Europe",         start:2014, deaths:"172,226–450,000+",      category:"Major War" },
+  { name:"Colombian Conflict",                   location:"Colombia, Venezuela, Ecuador",                          region:"Latin America",  start:1964, deaths:"460,300+",              category:"Minor War" },
+  { name:"Afghan Conflict",                      location:"Afghanistan, Pakistan, Tajikistan",                     region:"South Asia",     start:1978, deaths:"380,000–2,805,000+",   category:"Minor War" },
+  { name:"Ecuadorian Conflict",                  location:"Ecuador, Colombia",                                     region:"Latin America",  start:1993, deaths:"13,000+",               category:"Minor War" },
+  { name:"Nigerian Civil Conflicts",             location:"Nigeria, Niger, Cameroon, Chad",                        region:"Africa",         start:1998, deaths:"107,300+",              category:"Minor War" },
+  { name:"Venezuelan Conflict",                  location:"Venezuela, Colombia",                                   region:"Latin America",  start:2010, deaths:"460,300+",              category:"Minor War" },
+  { name:"Yemeni Civil War",                     location:"Yemen, Saudi Arabia, UAE, Israel",                      region:"Middle East",    start:2011, deaths:"384,900",               category:"Minor War" },
+  { name:"Syrian Conflict",                      location:"Syria, Israel, Lebanon, Iraq, Turkey",                  region:"Middle East",    start:2011, deaths:"664,800+",              category:"Minor War" },
+  { name:"Cameroonian Conflicts",                location:"Cameroon, Nigeria, Niger, Chad",                        region:"Africa",         start:2012, deaths:"11,000+",               category:"Minor War" },
+  { name:"Central African Republic Civil War",   location:"CAR, Cameroon, DR Congo, South Sudan",                 region:"Africa",         start:2012, deaths:"16,300+",               category:"Minor War" },
+  { name:"Ethiopian Civil Conflict",             location:"Ethiopia",                                              region:"Africa",         start:2018, deaths:"500,000–616,300+",      category:"Minor War" },
+  { name:"Haitian Crisis",                       location:"Haiti",                                                  region:"Latin America",  start:2018, deaths:"20,000+",               category:"Minor War" },
+  { name:"Kurdish Nationalist Conflicts",        location:"Iran, Iraq, Syria, Turkey",                             region:"Middle East",    start:1918, deaths:"135,950–178,450+",      category:"Conflict" },
+  { name:"Insurgencies in Iran",                 location:"Iran, Iraq, Turkey",                                    region:"Middle East",    start:1918, deaths:"47,900+",               category:"Conflict" },
+  { name:"Insurgencies in Turkey",               location:"Turkey, Syria, Iraq",                                   region:"Middle East",    start:1922, deaths:"138,000+",              category:"Conflict" },
+  { name:"Jamaican Political Conflict",          location:"Jamaica",                                               region:"Latin America",  start:1943, deaths:"1,900+",                category:"Conflict" },
+  { name:"Kashmir Conflict",                     location:"India, Pakistan, China",                                region:"South Asia",     start:1947, deaths:"202,200–2,000,000",     category:"Conflict" },
+  { name:"Insurgencies in Pakistan",             location:"Pakistan, Afghanistan, Iran",                           region:"South Asia",     start:1948, deaths:"23,100+",               category:"Conflict" },
+  { name:"Insurgencies in India",                location:"India, Myanmar, Bhutan",                                region:"South Asia",     start:1954, deaths:"81,400",                category:"Conflict" },
+  { name:"Papua Conflict",                       location:"Indonesia",                                             region:"Southeast Asia", start:1962, deaths:"100,400–500,000",       category:"Conflict" },
+  { name:"Philippine Civil Conflict",            location:"Philippines",                                           region:"Southeast Asia", start:1969, deaths:"166,600–245,200",       category:"Conflict" },
+  { name:"Cabinda War",                          location:"Angola",                                                region:"Africa",         start:1975, deaths:"30,200",                category:"Conflict" },
+  { name:"Papua New Guinea Ethnic Violence",     location:"Papua New Guinea",                                      region:"Oceania",        start:1988, deaths:"15,400–20,000",         category:"Conflict" },
+  { name:"Brazilian Favela Conflict",            location:"Brazil",                                                region:"Latin America",  start:1990, deaths:"800+",                  category:"Conflict" },
+  { name:"Bangladeshi Insurgencies",             location:"Bangladesh, Myanmar, India",                            region:"South Asia",     start:1999, deaths:"80,100+",               category:"Conflict" },
+  { name:"Iraqi Conflict",                       location:"Iraq",                                                  region:"Middle East",    start:2003, deaths:"334,700–1,215,000+",    category:"Conflict" },
+  { name:"Libyan Crisis",                        location:"Libya",                                                  region:"Africa",         start:2011, deaths:"30,300–43,000",         category:"Conflict" },
+  { name:"Cabo Delgado Insurgency",              location:"Mozambique, Tanzania",                                  region:"Africa",         start:2017, deaths:"7,800+",                category:"Conflict" },
+  { name:"Honduran Gang Crackdown",              location:"Honduras",                                              region:"Latin America",  start:2022, deaths:"100–1,700",             category:"Conflict" },
+  { name:"Cross-Border Attacks in Sabah",        location:"Malaysia, Philippines",                                 region:"Southeast Asia", start:1962, deaths:"134+",                  category:"Skirmish" },
+  { name:"Western Sahara Conflict",              location:"Morocco, Sahrawi Republic",                            region:"Africa",         start:1970, deaths:"14,000–21,000+",         category:"Skirmish" },
+  { name:"Laos Insurgency",                      location:"Laos",                                                  region:"Southeast Asia", start:1975, deaths:"100,000+",              category:"Skirmish" },
+  { name:"Peruvian Conflict",                    location:"Peru",                                                  region:"Latin America",  start:1980, deaths:"70,000",                 category:"Skirmish" },
+  { name:"Egyptian Islamist Insurgency",         location:"Egypt",                                                 region:"Africa",         start:1981, deaths:"6,000–7,353+",           category:"Skirmish" },
+  { name:"Casamance Conflict",                   location:"Senegal, Gambia",                                       region:"Africa",         start:1982, deaths:"5,000+",                category:"Skirmish" },
+  { name:"Nagorno-Karabakh Conflict",            location:"Armenia, Azerbaijan",                                   region:"Europe",         start:1988, deaths:"39,800–49,000+",        category:"Skirmish" },
+  { name:"Thailand Southern Insurgency",         location:"Thailand",                                              region:"Southeast Asia", start:2004, deaths:"7,300",                 category:"Skirmish" },
+  { name:"Paraguay Insurgency",                  location:"Paraguay",                                              region:"Latin America",  start:2005, deaths:"150+",                  category:"Skirmish" },
+  { name:"North Caucasus ISIS Insurgency",       location:"Russia, Azerbaijan, Georgia",                           region:"Europe",         start:2015, deaths:"Unknown",               category:"Skirmish" },
+  { name:"El Salvador Gang Crackdown",           location:"El Salvador",                                           region:"Latin America",  start:2022, deaths:"545+",                  category:"Skirmish" }
+];
+
+const regionClass = {
+  "Middle East":   "r-me",
+  "Africa":        "r-af",
+  "Europe":        "r-eu",
+  "South Asia":    "r-sa",
+  "Latin America": "r-la",
+  "Southeast Asia":"r-sea",
+  "Oceania":       "r-oc"
+};
+
+const regionLabel = {
+  "Middle East":   "중동",
+  "Africa":        "아프리카",
+  "Europe":        "유럽",
+  "South Asia":    "남아시아",
+  "Latin America": "중남미",
+  "Southeast Asia":"동남아시아",
+  "Oceania":       "오세아니아"
+};
+
+const scaleClass = {
+  "Major War": "s-major",
+  "Minor War":  "s-minor",
+  "Conflict":   "s-conflict",
+  "Skirmish":   "s-skirmish"
+};
+
+const scaleLabel = {
+  "Major War": "대형전쟁",
+  "Minor War":  "소형전쟁",
+  "Conflict":   "분쟁",
+  "Skirmish":   "소규모충돌"
+};
+
+// Build table
+const tbody = document.getElementById('conflictTable');
+conflicts.forEach((c, i) => {
+  const tr = document.createElement('tr');
+  tr.dataset.category = c.category;
+  tr.innerHTML = `
+    <td>${i + 1}</td>
+    <td>
+      <div class="conflict-name">${c.name}</div>
+      <div class="location-text">${c.location}</div>
+    </td>
+    <td><span class="region-badge ${regionClass[c.region] || ''}">${regionLabel[c.region] || c.region}</span></td>
+    <td><span class="scale-badge ${scaleClass[c.category] || ''}">${scaleLabel[c.category] || c.category}</span></td>
+    <td class="year-text">${c.start}</td>
+    <td class="deaths-text">${c.deaths}</td>
+  `;
+  tbody.appendChild(tr);
+});
+
+// Build region grid
+const regionCount = {};
+conflicts.forEach(c => { regionCount[c.region] = (regionCount[c.region] || 0) + 1; });
+const maxRegion = Math.max(...Object.values(regionCount));
+const grid = document.getElementById('regionGrid');
+const sorted = Object.entries(regionCount).sort((a,b)=>b[1]-a[1]);
+sorted.forEach(([region, count]) => {
+  const div = document.createElement('div');
+  div.className = 'region-card';
+  const pct = Math.round(count / maxRegion * 100);
+  div.innerHTML = `
+    <div class="rc-name">${regionLabel[region] || region}</div>
+    <div class="rc-num">${count}<span style="font-size:.9rem;font-weight:400;color:var(--text-muted)"> 건</span></div>
+    <div class="rc-bar"><div class="rc-fill" style="width:${pct}%"></div></div>
+  `;
+  grid.appendChild(div);
+});
+
+// ── Military Expenditure Bar Chart ──
+const milData = [
+  { country:"미국",       country_en:"United States", spending:997.0, gdp:3.4,  korea:false },
+  { country:"중국",       country_en:"China",          spending:314.0, gdp:1.7,  korea:false },
+  { country:"러시아",     country_en:"Russia",         spending:149.0, gdp:7.1,  korea:false },
+  { country:"독일",       country_en:"Germany",        spending:88.5,  gdp:1.9,  korea:false },
+  { country:"인도",       country_en:"India",          spending:86.1,  gdp:2.3,  korea:false },
+  { country:"영국",       country_en:"United Kingdom", spending:81.8,  gdp:2.3,  korea:false },
+  { country:"사우디",     country_en:"Saudi Arabia",   spending:80.3,  gdp:7.4,  korea:false },
+  { country:"우크라이나", country_en:"Ukraine",        spending:64.7,  gdp:34.0, korea:false },
+  { country:"프랑스",     country_en:"France",         spending:64.7,  gdp:2.1,  korea:false },
+  { country:"일본",       country_en:"Japan",          spending:55.3,  gdp:1.4,  korea:false },
+];
+// South Korea is rank 11; add it for reference but chart shows top 10 with KR highlighted separately
+const milTop10 = milData; // top 10 — KR is #11, so we show 10 without KR in bar but note it
+// Actually let's include KR as rank 11 in the chart for context
+const milChart11 = [
+  ...milData,
+  { country:"한국 ★",   country_en:"South Korea",    spending:47.6,  gdp:2.6,  korea:true  },
+];
+
+const milMax = milChart11[0].spending;
+const milContainer = document.getElementById('milChart');
+milChart11.forEach((d, i) => {
+  const pct = (d.spending / milMax * 100).toFixed(1);
+  const row = document.createElement('div');
+  row.className = 'mil-row';
+  row.innerHTML = `
+    <div class="mil-label${d.korea ? ' korea' : ''}">${i + 1}. ${d.country}</div>
+    <div class="mil-bar-track">
+      <div class="mil-bar-fill${d.korea ? ' korea' : ''}" style="width:${pct}%">
+        <span class="mil-bar-val">$${d.spending}B</span>
+      </div>
+    </div>
+    <div class="mil-gdp">GDP ${d.gdp}%</div>
+  `;
+  milContainer.appendChild(row);
+});
+
+// ── Global Peace Index Asia Table ──
+const gpiData = [
+  { rank:6,   country:"싱가포르",   region:"Southeast Asia", score:1.357 },
+  { rank:12,  country:"일본",       region:"East Asia",      score:1.440 },
+  { rank:13,  country:"말레이시아", region:"Southeast Asia", score:1.469 },
+  { rank:27,  country:"카타르",     region:"Middle East",    score:1.593 },
+  { rank:31,  country:"쿠웨이트",   region:"Middle East",    score:1.642 },
+  { rank:38,  country:"베트남",     region:"Southeast Asia", score:1.721 },
+  { rank:40,  country:"대만",       region:"East Asia",      score:1.730 },
+  { rank:41,  country:"한국 ★",    region:"East Asia",      score:1.736 },
+  { rank:42,  country:"오만",       region:"Middle East",    score:1.738 },
+  { rank:44,  country:"동티모르",   region:"Southeast Asia", score:1.758 },
+  { rank:47,  country:"라오스",     region:"Southeast Asia", score:1.783 },
+  { rank:52,  country:"UAE",        region:"Middle East",    score:1.812 },
+  { rank:56,  country:"카자흐스탄", region:"Central Asia",   score:1.875 },
+  { rank:67,  country:"우즈베키스탄",region:"Central Asia",  score:1.926 },
+  { rank:72,  country:"요르단",     region:"Middle East",    score:1.957 },
+  { rank:76,  country:"네팔",       region:"South Asia",     score:1.987 },
+  { rank:78,  country:"키르기스스탄",region:"Central Asia",  score:1.988 },
+  { rank:79,  country:"타지키스탄", region:"Central Asia",   score:1.996 },
+  { rank:81,  country:"튀니지",     region:"Middle East",    score:1.998 },
+  { rank:85,  country:"모로코",     region:"Middle East",    score:2.012 },
+  { rank:86,  country:"태국",       region:"Southeast Asia", score:2.017 },
+  { rank:87,  country:"캄보디아",   region:"Southeast Asia", score:2.019 },
+  { rank:87,  country:"투르크메니스탄",region:"Central Asia",score:2.019 },
+  { rank:90,  country:"사우디",     region:"Middle East",    score:2.035 },
+  { rank:97,  country:"스리랑카",   region:"South Asia",     score:2.075 },
+  { rank:98,  country:"중국",       region:"East Asia",      score:2.093 },
+  { rank:100, country:"바레인",     region:"Middle East",    score:2.099 },
+  { rank:105, country:"필리핀",     region:"Southeast Asia", score:2.148 },
+  { rank:107, country:"이집트",     region:"Middle East",    score:2.157 },
+  { rank:115, country:"인도",       region:"South Asia",     score:2.229 },
+  { rank:136, country:"레바논",     region:"Middle East",    score:2.674 },
+  { rank:142, country:"이란",       region:"Middle East",    score:2.750 },
+  { rank:144, country:"파키스탄",   region:"South Asia",     score:2.797 },
+  { rank:145, country:"팔레스타인", region:"Middle East",    score:2.811 },
+  { rank:146, country:"터키",       region:"Middle East",    score:2.852 },
+  { rank:147, country:"이라크",     region:"Middle East",    score:2.862 },
+  { rank:155, country:"이스라엘",   region:"Middle East",    score:3.108 },
+  { rank:158, country:"아프가니스탄",region:"South Asia",    score:3.229 },
+  { rank:159, country:"예멘",       region:"Middle East",    score:3.262 },
+];
+
+const gpiMin = 1.0, gpiMax = 3.5;
+const regionTagClass = { "East Asia":"gr-ea","Southeast Asia":"gr-sea","South Asia":"gr-sa","Middle East":"gr-me","Central Asia":"gr-ca" };
+const regionKo = { "East Asia":"동아시아","Southeast Asia":"동남아시아","South Asia":"남아시아","Middle East":"중동","Central Asia":"중앙아시아" };
+
+function scoreColor(score) {
+  // 1.0(green) → 2.0(yellow) → 3.5(red)
+  const t = Math.min(Math.max((score - gpiMin) / (gpiMax - gpiMin), 0), 1);
+  if (t < 0.5) {
+    const g = Math.round(211 - (211 - 214) * (t * 2));
+    const r = Math.round(104 + (214 - 104) * (t * 2));
+    const b = Math.round(145 - 145 * (t * 2));
+    return `rgb(${r},${g},${b})`;
+  } else {
+    const tt = (t - 0.5) * 2;
+    const r = Math.round(214 + (229 - 214) * tt);
+    const g = Math.round(214 - 214 * tt);
+    const b = 0;
+    return `rgb(${r},${g},${b})`;
+  }
+}
+
+function buildGpiTable(filterRegion) {
+  const tbody = document.getElementById('gpiTable');
+  tbody.innerHTML = '';
+  const rows = filterRegion === 'all' ? gpiData : gpiData.filter(d => d.region === filterRegion);
+  rows.forEach(d => {
+    const isKorea = d.country.includes('한국');
+    const color = scoreColor(d.score);
+    const barPct = ((d.score - gpiMin) / (gpiMax - gpiMin) * 100).toFixed(1);
+    const tr = document.createElement('tr');
+    if (isKorea) tr.className = 'gpi-kr';
+    tr.innerHTML = `
+      <td>${d.rank}</td>
+      <td class="${isKorea ? 'gpi-country' : ''}" style="${isKorea ? 'color:#f6e05e;font-weight:700' : ''}">${d.country}</td>
+      <td><span class="gpi-region-tag ${regionTagClass[d.region] || ''}">${regionKo[d.region] || d.region}</span></td>
+      <td>
+        <div class="gpi-score-cell">
+          <span class="gpi-score-pill" style="background:${color}22;color:${color};border:1px solid ${color}55">${d.score.toFixed(3)}</span>
+          <div class="gpi-bar" style="background:linear-gradient(90deg,${color} ${barPct}%,rgba(255,255,255,.06) ${barPct}%)"></div>
+        </div>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+buildGpiTable('all');
+
+function gpiFilter(region) {
+  document.querySelectorAll('.gpi-btn').forEach(b => {
+    b.classList.remove('active');
+    const map = { all:'전체', 'East Asia':'동아시아', 'Southeast Asia':'동남아시아', 'South Asia':'남아시아', 'Middle East':'중동', 'Central Asia':'중앙아시아' };
+    if (b.textContent.trim() === map[region]) b.classList.add('active');
+  });
+  buildGpiTable(region);
+}
+
+// ── Filter
+let activeFilter = 'all';
+const filterBtns = document.querySelectorAll('.filter-btn');
+const classMap = { all:'active-all', 'Major War':'active-major', 'Minor War':'active-minor', Conflict:'active-conf', Skirmish:'active-skirmish' };
+
+function filter(cat) {
+  activeFilter = cat;
+  filterBtns.forEach(b => {
+    b.className = 'filter-btn';
+    const label = b.textContent.trim();
+    const btnCat = label === '전체' ? 'all' : label === '대형전쟁' ? 'Major War' : label === '소형전쟁' ? 'Minor War' : label === '분쟁' ? 'Conflict' : 'Skirmish';
+    if (btnCat === cat) b.classList.add(classMap[cat]);
+  });
+  document.querySelectorAll('#conflictTable tr').forEach(tr => {
+    tr.classList.toggle('hidden', cat !== 'all' && tr.dataset.category !== cat);
+  });
+}
+</script>
+</body>
+</html>
