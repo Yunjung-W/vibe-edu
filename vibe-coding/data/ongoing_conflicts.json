@@ -1,0 +1,85 @@
+{
+  "source": "https://en.wikipedia.org/wiki/List_of_ongoing_armed_conflicts",
+  "retrieved": "2026-04-10",
+  "categories": [
+    {
+      "id": "major",
+      "label": "대규모 전쟁",
+      "description": "연간 사망자 10,000명 이상",
+      "scale": "major",
+      "conflicts": [
+        { "name": "아랍-이스라엘/이란-이스라엘 분쟁", "name_en": "Arab–Israeli/Iran–Israel conflicts", "location": "이스라엘, 팔레스타인, 레바논, 시리아, 이란, 예멘", "region": "아시아", "start": 1948 },
+        { "name": "미얀마 내전", "name_en": "Myanmar civil war", "location": "미얀마, 인도, 방글라데시, 태국, 중국", "region": "아시아", "start": 1948 },
+        { "name": "수단 내전", "name_en": "Sudanese civil wars", "location": "수단, 남수단, 차드, 중앙아프리카공화국, 이집트, 에티오피아, 리비아", "region": "아프리카", "start": 1955 },
+        { "name": "콩고 분쟁", "name_en": "Congolese conflicts", "location": "콩고민주공화국, 중앙아프리카공화국, 남수단, 르완다, 부룬디, 우간다", "region": "아프리카", "start": 1960 },
+        { "name": "소말리아 내전", "name_en": "Somali Civil War", "location": "소말리아, 케냐", "region": "아프리카", "start": 1981 },
+        { "name": "마그레브/사헬 이슬람 반군", "name_en": "Islamist insurgencies in the Maghreb/Sahel", "location": "알제리, 베냉, 부르키나파소, 카메룬, 차드, 코트디부아르, 리비아, 말리, 모리타니, 모로코, 니제르, 나이지리아, 토고, 튀니지", "region": "아프리카", "start": 2002 },
+        { "name": "멕시코 마약 전쟁", "name_en": "Mexican drug war", "location": "멕시코, 벨리즈, 엘살바도르, 온두라스, 과테말라, 니카라과, 미국", "region": "북아메리카", "start": 2006 },
+        { "name": "러시아-우크라이나 전쟁", "name_en": "Russo-Ukrainian war", "location": "우크라이나, 러시아, 벨라루스", "region": "유럽", "start": 2014 }
+      ]
+    },
+    {
+      "id": "minor_war",
+      "label": "중규모 전쟁",
+      "description": "연간 사망자 1,000–9,999명",
+      "scale": "minor_war",
+      "conflicts": [
+        { "name": "콜롬비아 분쟁", "name_en": "Colombian conflict", "location": "콜롬비아, 베네수엘라, 에콰도르", "region": "남아메리카", "start": 1964 },
+        { "name": "아프가니스탄 분쟁", "name_en": "Afghan conflict", "location": "아프가니스탄, 파키스탄, 타지키스탄", "region": "아시아", "start": 1978 },
+        { "name": "에콰도르 반란", "name_en": "Insurgency in Ecuador", "location": "에콰도르, 콜롬비아", "region": "남아메리카", "start": 1993 },
+        { "name": "나이지리아 내분", "name_en": "Civil conflicts in Nigeria", "location": "나이지리아, 니제르, 카메룬, 차드", "region": "아프리카", "start": 1998 },
+        { "name": "베네수엘라 분쟁", "name_en": "Venezuelan conflict", "location": "베네수엘라, 콜롬비아", "region": "남아메리카", "start": 2010 },
+        { "name": "예멘 내전", "name_en": "Yemeni civil war", "location": "예멘, 사우디아라비아, 아랍에미리트, 이스라엘", "region": "아시아", "start": 2011 },
+        { "name": "시리아 분쟁", "name_en": "Syrian conflict", "location": "시리아, 이스라엘, 레바논, 이라크, 터키", "region": "아시아", "start": 2011 },
+        { "name": "카메룬 분쟁", "name_en": "Cameroonian conflicts", "location": "카메룬, 나이지리아, 니제르, 차드", "region": "아프리카", "start": 2012 },
+        { "name": "중앙아프리카공화국 내전", "name_en": "Central African Republic Civil War", "location": "중앙아프리카공화국, 카메룬, 콩고민주공화국, 남수단", "region": "아프리카", "start": 2012 },
+        { "name": "에티오피아 내분", "name_en": "Ethiopian civil conflict", "location": "에티오피아", "region": "아프리카", "start": 2018 },
+        { "name": "아이티 위기", "name_en": "Haitian crisis", "location": "아이티", "region": "북아메리카", "start": 2018 }
+      ]
+    },
+    {
+      "id": "conflict",
+      "label": "소규모 분쟁",
+      "description": "연간 사망자 100–999명",
+      "scale": "conflict",
+      "conflicts": [
+        { "name": "쿠르드 민족주의 분쟁", "name_en": "Kurdish nationalist conflicts", "location": "이란, 이라크, 시리아, 터키", "region": "아시아", "start": 1918 },
+        { "name": "이란 반군 활동", "name_en": "Insurgencies in Iran", "location": "이란, 이라크, 터키", "region": "아시아", "start": 1918 },
+        { "name": "터키 반군 활동", "name_en": "Insurgencies in Turkey", "location": "터키, 시리아, 이라크", "region": "아시아", "start": 1922 },
+        { "name": "자메이카 정치 분쟁", "name_en": "Jamaican political conflict", "location": "자메이카", "region": "북아메리카", "start": 1943 },
+        { "name": "카슈미르 분쟁", "name_en": "Kashmir conflict", "location": "인도, 파키스탄, 중국", "region": "아시아", "start": 1947 },
+        { "name": "파키스탄 반군 활동", "name_en": "Insurgencies in Pakistan", "location": "파키스탄, 아프가니스탄, 이란", "region": "아시아", "start": 1948 },
+        { "name": "인도 반군 활동", "name_en": "Insurgencies in India", "location": "인도, 미얀마, 부탄", "region": "아시아", "start": 1954 },
+        { "name": "파푸아 분쟁", "name_en": "Papua conflict", "location": "인도네시아", "region": "오세아니아", "start": 1962 },
+        { "name": "필리핀 내분", "name_en": "Civil conflict in the Philippines", "location": "필리핀", "region": "아시아", "start": 1969 },
+        { "name": "카빈다 전쟁", "name_en": "Cabinda War", "location": "앙골라", "region": "아프리카", "start": 1975 },
+        { "name": "파푸아뉴기니 민족 폭력", "name_en": "Ethnic violence in Papua New Guinea", "location": "파푸아뉴기니", "region": "오세아니아", "start": 1988 },
+        { "name": "브라질 파벨라 분쟁", "name_en": "Armed conflict for control of the favelas", "location": "브라질", "region": "남아메리카", "start": 1990 },
+        { "name": "방글라데시 반군 활동", "name_en": "Insurgencies in Bangladesh", "location": "방글라데시, 미얀마, 인도", "region": "아시아", "start": 1999 },
+        { "name": "이라크 분쟁", "name_en": "Iraqi conflict", "location": "이라크", "region": "아시아", "start": 2003 },
+        { "name": "리비아 위기", "name_en": "Libyan crisis", "location": "리비아", "region": "아프리카", "start": 2011 },
+        { "name": "카보델가도 반군", "name_en": "Insurgency in Cabo Delgado", "location": "모잠비크, 탄자니아", "region": "아프리카", "start": 2017 },
+        { "name": "온두라스 갱단 진압", "name_en": "Honduran gang crackdown", "location": "온두라스", "region": "북아메리카", "start": 2022 }
+      ]
+    },
+    {
+      "id": "skirmish",
+      "label": "소규모 충돌",
+      "description": "연간 사망자 100명 미만",
+      "scale": "skirmish",
+      "conflicts": [
+        { "name": "사바 국경 분쟁", "name_en": "Cross border attacks in Sabah", "location": "말레이시아, 필리핀", "region": "아시아", "start": 1962 },
+        { "name": "서사하라 분쟁", "name_en": "Western Sahara conflict", "location": "모로코, 서사하라", "region": "아프리카", "start": 1970 },
+        { "name": "라오스 반군 활동", "name_en": "Insurgency in Laos", "location": "라오스", "region": "아시아", "start": 1975 },
+        { "name": "페루 분쟁", "name_en": "Peruvian conflict", "location": "페루", "region": "남아메리카", "start": 1980 },
+        { "name": "이집트 이슬람 반군", "name_en": "Islamist insurgency in Egypt", "location": "이집트", "region": "아프리카", "start": 1981 },
+        { "name": "카사망스 분쟁", "name_en": "Casamance conflict", "location": "세네갈, 감비아", "region": "아프리카", "start": 1982 },
+        { "name": "나고르노카라바흐 분쟁", "name_en": "Nagorno-Karabakh conflict", "location": "아르메니아, 아제르바이잔", "region": "아시아", "start": 1988 },
+        { "name": "태국 남부 반군", "name_en": "South Thailand insurgency", "location": "태국", "region": "아시아", "start": 2004 },
+        { "name": "파라과이 반군 활동", "name_en": "Insurgency in Paraguay", "location": "파라과이", "region": "남아메리카", "start": 2005 },
+        { "name": "북캅카스 ISIS 반군", "name_en": "ISIS insurgency in the North Caucasus", "location": "러시아, 아제르바이잔, 조지아", "region": "유럽", "start": 2015 },
+        { "name": "엘살바도르 갱단 진압", "name_en": "Salvadoran gang crackdown", "location": "엘살바도르", "region": "북아메리카", "start": 2022 }
+      ]
+    }
+  ]
+}
