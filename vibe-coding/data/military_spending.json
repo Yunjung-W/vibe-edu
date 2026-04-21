@@ -1,0 +1,28 @@
+{
+  "source": "https://en.wikipedia.org/wiki/List_of_countries_by_military_expenditures",
+  "retrieved": "2026-04-18",
+  "data_year": 2024,
+  "unit": "USD Billions",
+  "countries": [
+    { "rank": 1, "country": "미국", "country_en": "United States", "spending": 997.0 },
+    { "rank": 2, "country": "중국", "country_en": "China", "spending": 314.0 },
+    { "rank": 3, "country": "러시아", "country_en": "Russia", "spending": 149.0 },
+    { "rank": 4, "country": "독일", "country_en": "Germany", "spending": 88.5 },
+    { "rank": 5, "country": "인도", "country_en": "India", "spending": 86.1 },
+    { "rank": 6, "country": "영국", "country_en": "United Kingdom", "spending": 81.8 },
+    { "rank": 7, "country": "사우디아라비아", "country_en": "Saudi Arabia", "spending": 80.3 },
+    { "rank": 8, "country": "우크라이나", "country_en": "Ukraine", "spending": 64.7 },
+    { "rank": 9, "country": "프랑스", "country_en": "France", "spending": 64.7 },
+    { "rank": 10, "country": "일본", "country_en": "Japan", "spending": 55.3 },
+    { "rank": 11, "country": "대한민국", "country_en": "South Korea", "spending": 47.6 },
+    { "rank": 12, "country": "이스라엘", "country_en": "Israel", "spending": 46.5 },
+    { "rank": 13, "country": "폴란드", "country_en": "Poland", "spending": 38.0 },
+    { "rank": 14, "country": "이탈리아", "country_en": "Italy", "spending": 38.0 },
+    { "rank": 15, "country": "호주", "country_en": "Australia", "spending": 33.8 },
+    { "rank": 16, "country": "캐나다", "country_en": "Canada", "spending": 29.3 },
+    { "rank": 17, "country": "터키", "country_en": "Turkey", "spending": 25.0 },
+    { "rank": 18, "country": "스페인", "country_en": "Spain", "spending": 24.6 },
+    { "rank": 19, "country": "네덜란드", "country_en": "Netherlands", "spending": 23.2 },
+    { "rank": 20, "country": "알제리", "country_en": "Algeria", "spending": 21.8 }
+  ]
+}

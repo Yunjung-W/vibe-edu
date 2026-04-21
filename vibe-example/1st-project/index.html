@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>졸지마! 🎓 교실 게임</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', 'Apple SD Gothic Neo', sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 14px;
+      user-select: none;
+    }
+
+    /* ───── HEADER ───── */
+    #header {
+      width: 100%;
+      max-width: 780px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 24px;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 18px;
+      margin-bottom: 14px;
+      border: 1px solid rgba(255,255,255,0.18);
+    }
+
+    .hd-section { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+    .hd-label   { font-size: 11px; color: rgba(255,255,255,0.55); letter-spacing: 1.5px; text-transform: uppercase; }
+    .hd-val     { font-size: 22px; font-weight: 800; color: #fff; }
+
+    #lives-row  { display: flex; gap: 4px; font-size: 22px; }
+    .heart      { transition: opacity .3s, filter .3s; }
+    .heart.lost { opacity: .28; filter: grayscale(1); }
+
+    /* ───── CLASSROOM ───── */
+    #classroom {
+      width: 100%;
+      max-width: 780px;
+      background: linear-gradient(180deg, #f5f0e8, #ede5d0);
+      border-radius: 22px;
+      padding: 18px;
+      border: 4px solid #7a3b0e;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* wood floor lines */
+    #classroom::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        repeating-linear-gradient(90deg, transparent 0, transparent 59px, rgba(139,69,19,.07) 59px, rgba(139,69,19,.07) 60px),
+        repeating-linear-gradient(0deg,  transparent 0, transparent 59px, rgba(139,69,19,.07) 59px, rgba(139,69,19,.07) 60px);
+      pointer-events: none;
+    }
+
+    /* ───── BLACKBOARD ───── */
+    #blackboard {
+      position: relative; z-index: 1;
+      background: linear-gradient(135deg, #2e5e28, #1d3f1a);
+      border: 6px solid #5a3410;
+      border-radius: 10px;
+      padding: 13px 20px;
+      margin-bottom: 18px;
+      text-align: center;
+      color: rgba(255,255,255,0.88);
+      font-size: 15px;
+      box-shadow: inset 0 0 20px rgba(0,0,0,.3), 3px 3px 0 #402209;
+    }
+    #blackboard::after {
+      content: '';
+      position: absolute;
+      top: 8px; left: 18%; width: 25%; height: 3px;
+      background: rgba(255,255,255,.12); border-radius: 2px;
+    }
+
+    /* ───── DESKS ───── */
+    #desks-area { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 16px; }
+    .desk-row   { display: flex; justify-content: center; gap: 16px; }
+
+    .desk {
+      background: linear-gradient(180deg, #e8c285, #c99a55);
+      border: 3px solid #7a3b0e;
+      border-radius: 12px;
+      padding: 12px 18px 14px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-end;
+      box-shadow: 0 6px 0 #5a2a08, 2px 9px 14px rgba(0,0,0,.25);
+      position: relative;
+      min-width: 158px;
+    }
+    .desk::before {
+      content: '';
+      position: absolute; top: 7px; left: 10px; right: 10px;
+      height: 2px; background: rgba(255,255,255,.25); border-radius: 1px;
+    }
+
+    /* ───── STUDENT ───── */
+    .student {
+      display: flex; flex-direction: column; align-items: center;
+      cursor: pointer; position: relative;
+      padding-top: 8px;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform .1s;
+    }
+    .student:active { transform: scale(.93); }
+
+    /* head */
+    .s-head {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      background: #ffdab9;
+      border: 2px solid #d4a070;
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+      transition: all .35s;
+      z-index: 2;
+    }
+    .s-hair {
+      position: absolute; top: -2px; left: 0; right: 0;
+      height: 14px; border-radius: 50% 50% 0 0;
+    }
+    .s-face  { display: flex; flex-direction: column; align-items: center; gap: 4px; margin-top: 7px; }
+    .s-eyes  { display: flex; gap: 7px; }
+    .s-eye   { width: 5px; height: 6px; background: #222; border-radius: 50%; transition: all .35s; }
+    .s-mouth {
+      width: 12px; height: 6px;
+      border: 2px solid #c07070; border-top: none;
+      border-radius: 0 0 12px 12px;
+      transition: all .35s;
+    }
+
+    /* body */
+    .s-body { width: 38px; height: 26px; border-radius: 6px 6px 0 0; margin-top: -3px; }
+
+    /* ── SLEEPING STATE ── */
+    .student.sleeping .s-head {
+      background: #ffbcce;
+      transform: rotate(14deg) translateY(4px);
+    }
+    .student.sleeping .s-eye {
+      height: 2px; border-radius: 0;
+      background: #555;
+    }
+    .student.sleeping .s-mouth {
+      border-color: transparent;
+      border-top: 2px solid #c07070;
+      border-bottom: none;
+      border-radius: 12px 12px 0 0;
+    }
+
+    /* ZZZ */
+    .zzz-wrap {
+      position: absolute; top: -52px; right: -14px;
+      display: none; flex-direction: column; align-items: center; gap: 1px;
+    }
+    .student.sleeping .zzz-wrap { display: flex; }
+
+    .z1,.z2,.z3 {
+      font-weight: 900; color: #8099ff;
+      line-height: 1;
+      opacity: 0;
+      animation: floatZ 1.6s ease-in-out infinite;
+    }
+    .z1 { font-size: 10px; animation-delay: .7s; }
+    .z2 { font-size: 14px; animation-delay: .35s; }
+    .z3 { font-size: 18px; animation-delay: 0s; }
+
+    @keyframes floatZ {
+      0%   { opacity: 0; transform: translateY(0) translateX(0) scale(.8); }
+      30%  { opacity: 1; }
+      100% { opacity: 0; transform: translateY(-28px) translateX(10px) scale(1.1); }
+    }
+
+    /* timer bar */
+    .t-wrap {
+      position: absolute; bottom: -5px; left: -3px; right: -3px;
+      height: 5px; background: rgba(0,0,0,.18); border-radius: 3px;
+      display: none; overflow: hidden;
+    }
+    .student.sleeping .t-wrap { display: block; }
+    .t-bar { height: 100%; width: 100%; background: #27ae60; border-radius: 3px; }
+
+    /* danger pulse */
+    .student.danger .s-head {
+      animation: dangerPulse .28s ease-in-out infinite alternate;
+    }
+    @keyframes dangerPulse {
+      from { box-shadow: 0 0 0 2px rgba(231,76,60,.5); }
+      to   { box-shadow: 0 0 12px 5px rgba(231,76,60,.95); }
+    }
+
+    /* wake pop */
+    .student.waking { animation: wakePop .4s cubic-bezier(.34,1.56,.64,1); }
+    @keyframes wakePop {
+      0%   { transform: scale(1); }
+      50%  { transform: scale(1.25) rotate(-6deg); }
+      75%  { transform: scale(.93) rotate(3deg); }
+      100% { transform: scale(1); }
+    }
+
+    /* classroom shake */
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      20%     { transform: translateX(-9px) rotate(-.8deg); }
+      40%     { transform: translateX(9px) rotate(.8deg); }
+      60%     { transform: translateX(-5px) rotate(-.4deg); }
+      80%     { transform: translateX(5px) rotate(.4deg); }
+    }
+    .shaking { animation: shake .4s ease !important; }
+
+    /* ───── PHASE BAR ───── */
+    #phase-bar {
+      margin-top: 10px;
+      font-size: 12px;
+      color: rgba(255,255,255,.65);
+      text-align: center;
+      min-height: 18px;
+      letter-spacing: .5px;
+    }
+
+    /* ───── SCORE POPUP ───── */
+    .score-pop {
+      position: fixed; pointer-events: none; z-index: 900;
+      font-size: 20px; font-weight: 900;
+      color: #f1c40f;
+      text-shadow: 0 2px 6px rgba(0,0,0,.4);
+      animation: scoreFly .85s ease forwards;
+    }
+    @keyframes scoreFly {
+      0%   { opacity: 1; transform: translateY(0) scale(1); }
+      100% { opacity: 0; transform: translateY(-55px) scale(1.15); }
+    }
+
+    /* ───── OVERLAY ───── */
+    #overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,.72);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      align-items: center; justify-content: center;
+    }
+    #overlay.show { display: flex; }
+
+    #ov-box {
+      background: #fff;
+      border-radius: 26px;
+      padding: 42px 52px;
+      text-align: center;
+      max-width: 400px; width: 90%;
+      box-shadow: 0 30px 80px rgba(0,0,0,.4);
+      animation: popIn .45s cubic-bezier(.34,1.56,.64,1);
+    }
+    @keyframes popIn {
+      0%   { transform: scale(.45); opacity: 0; }
+      100% { transform: scale(1);   opacity: 1; }
+    }
+
+    #ov-emoji { font-size: 64px; margin-bottom: 14px; }
+    #ov-title { font-size: 34px; font-weight: 900; color: #e74c3c; margin-bottom: 10px; }
+    #ov-sub   { font-size: 15px; color: #666; line-height: 1.6; margin-bottom: 18px; white-space: pre-line; }
+
+    #ov-score {
+      background: #f4f6f8; border-radius: 14px;
+      padding: 14px 20px; margin-bottom: 20px;
+      font-size: 22px; font-weight: 700; color: #2c3e50;
+      display: none;
+    }
+
+    #start-btn {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: #fff; border: none;
+      padding: 15px 44px; border-radius: 50px;
+      font-size: 18px; font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 5px 18px rgba(102,126,234,.45);
+      transition: transform .18s, box-shadow .18s;
+    }
+    #start-btn:hover  { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(102,126,234,.55); }
+    #start-btn:active { transform: translateY(0); }
+
+    /* ───── RULES LIST in overlay ───── */
+    .rules {
+      background: #f8f9fa; border-radius: 12px;
+      padding: 14px 18px; margin-bottom: 20px;
+      text-align: left; font-size: 13px; color: #444;
+      line-height: 1.9;
+    }
+    .rules li { list-style: none; }
+    .rules li::before { content: '▸ '; color: #667eea; font-weight: 700; }
+  </style>
+</head>
+<body>
+
+<!-- ─── HEADER ─── -->
+<div id="header">
+  <div class="hd-section">
+    <span class="hd-label">목숨</span>
+    <div id="lives-row">
+      <span class="heart">❤️</span>
+      <span class="heart">❤️</span>
+      <span class="heart">❤️</span>
+    </div>
+  </div>
+  <div class="hd-section">
+    <span class="hd-label">시간</span>
+    <span class="hd-val" id="timer-disp">0초</span>
+  </div>
+  <div class="hd-section">
+    <span class="hd-label">점수</span>
+    <span class="hd-val" id="score-disp">0</span>
+  </div>
+</div>
+
+<!-- ─── CLASSROOM ─── -->
+<div id="classroom">
+  <div id="blackboard">
+    📐 2 + 2 = 4 &nbsp;&nbsp; 🍎 오늘의 수업 &nbsp;&nbsp; ✏️ 졸면 안 돼요!
+  </div>
+  <div id="desks-area"><!-- JS로 생성 --></div>
+</div>
+
+<div id="phase-bar">준비 중...</div>
+
+<!-- ─── OVERLAY ─── -->
+<div id="overlay" class="show">
+  <div id="ov-box">
+    <div id="ov-emoji">🎓</div>
+    <h2 id="ov-title">졸지마!</h2>
+    <p id="ov-sub">조는 학생을 클릭해서 깨워주세요!</p>
+    <ul class="rules" id="ov-rules">
+      <li>😴 학생이 졸기 시작하면 클릭해서 깨우세요</li>
+      <li>⏱️ 2초 안에 못 깨우면 목숨 1개 잃어요</li>
+      <li>💔 목숨 3개를 모두 잃으면 게임 종료!</li>
+      <li>🔥 시간이 지날수록 한꺼번에 많이 졸아요</li>
+    </ul>
+    <div id="ov-score">최종 점수: <span id="ov-score-val">0</span>점 &nbsp;·&nbsp; <span id="ov-time-val">0</span>초 버팀</div>
+    <button id="start-btn" onclick="startGame()">게임 시작!</button>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════
+//  설정값
+// ═══════════════════════════════════════
+const SLEEP_MS  = 2000;   // 2초 안에 깨워야 함
+const MAX_LIVES = 3;
+
+// 학생 10명의 모양 데이터
+const STUDENT_DATA = [
+  { shirt: '#e74c3c', hair: '#2c1400' },
+  { shirt: '#3498db', hair: '#111111' },
+  { shirt: '#27ae60', hair: '#5c3317' },
+  { shirt: '#f39c12', hair: '#222222' },
+  { shirt: '#8e44ad', hair: '#1a0000' },
+  { shirt: '#16a085', hair: '#3a2000' },
+  { shirt: '#d35400', hair: '#1c1c1c' },
+  { shirt: '#c0392b', hair: '#6b3a1f' },
+  { shirt: '#2980b9', hair: '#0a0a0a' },
+  { shirt: '#1abc9c', hair: '#2e1a00' },
+];
+
+// ═══════════════════════════════════════
+//  게임 상태
+// ═══════════════════════════════════════
+let students     = [];
+let lives        = MAX_LIVES;
+let score        = 0;
+let gameTime     = 0;
+let isRunning    = false;
+let timerInt     = null;
+let spawnHandle  = null;
+
+// ═══════════════════════════════════════
+//  교실 건설
+// ═══════════════════════════════════════
+function buildClassroom() {
+  const area = document.getElementById('desks-area');
+  area.innerHTML = '';
+  students = [];
+
+  // 책상 배치: 앞줄 3개, 뒷줄 2개
+  const layout = [[0,1,2], [3,4]];
+
+  layout.forEach(row => {
+    const rowDiv = document.createElement('div');
+    rowDiv.className = 'desk-row';
+
+    row.forEach(deskIdx => {
+      const deskDiv = document.createElement('div');
+      deskDiv.className = 'desk';
+
+      for (let seat = 0; seat < 2; seat++) {
+        const sid  = deskIdx * 2 + seat;
+        const data = STUDENT_DATA[sid];
+        const el   = document.createElement('div');
+        el.className = 'student';
+        el.id = `s${sid}`;
+        el.innerHTML = `
+          <div class="zzz-wrap">
+            <div class="z1">z</div>
+            <div class="z2">z</div>
+            <div class="z3">Z</div>
+          </div>
+          <div class="t-wrap"><div class="t-bar"></div></div>
+          <div class="s-head">
+            <div class="s-hair" style="background:${data.hair}"></div>
+            <div class="s-face">
+              <div class="s-eyes">
+                <div class="s-eye"></div>
+                <div class="s-eye"></div>
+              </div>
+              <div class="s-mouth"></div>
+            </div>
+          </div>
+          <div class="s-body" style="background:${data.shirt}"></div>
+        `;
+        el.addEventListener('click', () => clickStudent(sid));
+        deskDiv.appendChild(el);
+
+        students.push({
+          id:         sid,
+          el:         el,
+          tBar:       el.querySelector('.t-bar'),
+          sleeping:   false,
+          failTimer:  null,
+          rafId:      null,
+          sleepAt:    0,
+        });
+      }
+
+      rowDiv.appendChild(deskDiv);
+    });
+
+    area.appendChild(rowDiv);
+  });
+}
+
+// ═══════════════════════════════════════
+//  학생 클릭 (플레이어가 깨우기)
+// ═══════════════════════════════════════
+function clickStudent(sid) {
+  if (!isRunning) return;
+  const s = students[sid];
+  if (!s.sleeping) return;
+  wakeUp(sid, true);
+}
+
+// ═══════════════════════════════════════
+//  학생 깨우기
+// ═══════════════════════════════════════
+function wakeUp(sid, byPlayer) {
+  const s = students[sid];
+  if (!s.sleeping) return;
+
+  clearTimeout(s.failTimer);
+  cancelAnimationFrame(s.rafId);
+  s.sleeping = false;
+  s.el.classList.remove('sleeping', 'danger');
+
+  if (byPlayer) {
+    // 빨리 깨울수록 보너스 점수
+    const elapsed = Date.now() - s.sleepAt;
+    const pts = 5 + Math.round((1 - elapsed / SLEEP_MS) * 10);
+    score += pts;
+    document.getElementById('score-disp').textContent = score;
+
+    s.el.classList.add('waking');
+    s.el.addEventListener('animationend', () => s.el.classList.remove('waking'), { once: true });
+
+    showScorePop(s.el, `+${pts}`);
+  }
+}
+
+// ═══════════════════════════════════════
+//  학생 졸리게 만들기
+// ═══════════════════════════════════════
+function fallAsleep(sid) {
+  const s = students[sid];
+  if (s.sleeping) return;
+
+  s.sleeping = true;
+  s.sleepAt  = Date.now();
+  s.el.classList.add('sleeping');
+  s.el.classList.remove('danger');
+  s.tBar.style.width      = '100%';
+  s.tBar.style.background = '#27ae60';
+
+  // 타이머 바 애니메이션
+  function tickBar() {
+    if (!s.sleeping) return;
+    const ratio = Math.max(0, 1 - (Date.now() - s.sleepAt) / SLEEP_MS);
+    s.tBar.style.width = `${ratio * 100}%`;
+    if      (ratio < 0.3) { s.tBar.style.background = '#e74c3c'; s.el.classList.add('danger'); }
+    else if (ratio < 0.6) { s.tBar.style.background = '#e67e22'; }
+    if (ratio > 0) s.rafId = requestAnimationFrame(tickBar);
+  }
+  s.rafId = requestAnimationFrame(tickBar);
+
+  // 2초 후 실패
+  s.failTimer = setTimeout(() => {
+    if (s.sleeping && isRunning) fail(sid);
+  }, SLEEP_MS);
+}
+
+// ═══════════════════════════════════════
+//  실패 처리
+// ═══════════════════════════════════════
+function fail(sid) {
+  const s = students[sid];
+  cancelAnimationFrame(s.rafId);
+  s.sleeping = false;
+  s.el.classList.remove('sleeping', 'danger');
+
+  lives--;
+  renderLives();
+  shakeRoom();
+
+  if (lives <= 0) gameOver();
+}
+
+// ═══════════════════════════════════════
+//  스폰 사이클 (단계별 졸리는 학생 수)
+// ═══════════════════════════════════════
+function spawnCycle() {
+  if (!isRunning) return;
+
+  // 단계 결정
+  let count, delay;
+  if (gameTime < 3) {
+    count = 1;
+    delay = 2000;   // 3초간: 한 명씩, 2초 간격
+  } else if (gameTime < 10) {
+    count = 2;
+    delay = 1000;   // ~10초: 두 명씩, 1초 간격
+  } else {
+    count = Math.random() < 0.5 ? 3 : 4;  // 10초 이후: 3~4명, 1초 간격
+    delay = 1000;
+  }
+
+  updatePhase();
+
+  // 깨어 있는 학생 중 랜덤 선택
+  const awake = students.filter(s => !s.sleeping);
+  shuffle(awake).slice(0, Math.min(count, awake.length)).forEach(s => fallAsleep(s.id));
+
+  spawnHandle = setTimeout(spawnCycle, delay);
+}
+
+function updatePhase() {
+  const bar = document.getElementById('phase-bar');
+  if      (gameTime < 3)  { bar.textContent = '🟢 단계 1 — 한 명씩 졸기 시작했어요...';          bar.style.color = '#98d47e'; }
+  else if (gameTime < 10) { bar.textContent = '🟡 단계 2 — 두 명씩 졸고 있어요! 집중하세요!';    bar.style.color = '#f0c84a'; }
+  else                    { bar.textContent = '🔴 단계 3 — 최대 4명이 한꺼번에 졸고 있어요!!!';  bar.style.color = '#ff7070'; }
+}
+
+// ═══════════════════════════════════════
+//  게임 시작
+// ═══════════════════════════════════════
+function startGame() {
+  lives     = MAX_LIVES;
+  score     = 0;
+  gameTime  = 0;
+  isRunning = true;
+
+  // 기존 타이머 정리
+  clearInterval(timerInt);
+  clearTimeout(spawnHandle);
+  students.forEach(s => { clearTimeout(s.failTimer); cancelAnimationFrame(s.rafId); });
+
+  buildClassroom();
+
+  document.getElementById('overlay').classList.remove('show');
+  document.getElementById('score-disp').textContent = '0';
+  document.getElementById('timer-disp').textContent = '0초';
+  document.getElementById('phase-bar').textContent  = '🟢 단계 1 — 한 명씩 졸기 시작했어요...';
+  document.getElementById('phase-bar').style.color  = '#98d47e';
+  renderLives();
+
+  // 게임 시간 카운터
+  timerInt = setInterval(() => {
+    if (!isRunning) return;
+    gameTime++;
+    document.getElementById('timer-disp').textContent = `${gameTime}초`;
+  }, 1000);
+
+  // 1.5초 후 첫 스폰
+  spawnHandle = setTimeout(spawnCycle, 1500);
+}
+
+// ═══════════════════════════════════════
+//  게임 종료
+// ═══════════════════════════════════════
+function gameOver() {
+  isRunning = false;
+  clearInterval(timerInt);
+  clearTimeout(spawnHandle);
+
+  students.forEach(s => {
+    clearTimeout(s.failTimer);
+    cancelAnimationFrame(s.rafId);
+    if (s.sleeping) {
+      s.sleeping = false;
+      s.el.classList.remove('sleeping', 'danger');
+    }
+  });
+
+  setTimeout(() => {
+    document.getElementById('ov-emoji').textContent       = '😴';
+    document.getElementById('ov-title').textContent       = '게임 오버!';
+    document.getElementById('ov-sub').textContent         = `${gameTime}초 동안 수업을 지켰어요!\n다시 도전해볼까요?`;
+    document.getElementById('ov-rules').style.display     = 'none';
+    document.getElementById('ov-score').style.display     = 'block';
+    document.getElementById('ov-score-val').textContent   = score;
+    document.getElementById('ov-time-val').textContent    = gameTime;
+    document.getElementById('start-btn').textContent      = '다시 도전!';
+    document.getElementById('overlay').classList.add('show');
+  }, 500);
+}
+
+// ═══════════════════════════════════════
+//  UI 헬퍼
+// ═══════════════════════════════════════
+function renderLives() {
+  document.querySelectorAll('.heart').forEach((h, i) => {
+    if (i < lives) { h.textContent = '❤️'; h.classList.remove('lost'); }
+    else           { h.textContent = '🖤'; h.classList.add('lost');    }
+  });
+}
+
+function shakeRoom() {
+  const room = document.getElementById('classroom');
+  room.classList.remove('shaking');
+  void room.offsetWidth; // reflow 강제
+  room.classList.add('shaking');
+  room.addEventListener('animationend', () => room.classList.remove('shaking'), { once: true });
+}
+
+function showScorePop(el, text) {
+  const r   = el.getBoundingClientRect();
+  const pop = document.createElement('div');
+  pop.className   = 'score-pop';
+  pop.textContent = text;
+  pop.style.left  = `${r.left + r.width / 2 - 16}px`;
+  pop.style.top   = `${r.top + scrollY - 10}px`;
+  document.body.appendChild(pop);
+  pop.addEventListener('animationend', () => pop.remove(), { once: true });
+}
+
+function shuffle(arr) {
+  return [...arr].sort(() => Math.random() - 0.5);
+}
+</script>
+</body>
+</html>

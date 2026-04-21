@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Pretendard', 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #ffffff;
+  color: #000000;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scroll animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+/* Responsive */
+@media (max-width: 1199px) {
+  .bottom-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .main-content {
+    padding-left: 40px !important;
+    padding-right: 40px !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .main-content {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+  }
+
+  header > div {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+  }
+
+  .summary-cards {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+
+/* Button interactions */
+button:active {
+  transform: scale(0.98);
+}
+
+/* Recharts overrides */
+.recharts-tooltip-wrapper {
+  outline: none !important;
+}
+
+.recharts-legend-item-text {
+  font-family: 'Outfit', sans-serif !important;
+  font-size: 12px !important;
+  color: #60605B !important;
+}
